@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MovimientoValores" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="de17d5fd-08c5-49d4-9cfa-3cc2777907ce">
+	<property name="ireport.zoom" value="1.6105100000000037"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="158"/>
+	<parameter name="nro_operacion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     mov_valores."nro_operacion" AS mov_valores_nro_operacion,
+     mov_valores."fecha_oper" AS mov_valores_fecha_oper,
+     mov_valores."cod_caja" AS mov_valores_cod_caja,
+     caja."nom_caja" AS caja_nom_caja,
+     mov_valores."cod_moneda" AS mov_valores_cod_moneda,
+     mt_monedas."nom_moneda" AS mt_monedas_nom_moneda,
+     mov_valores."cod_banco" AS mov_valores_cod_banco,
+     mt_bancos."nom_banco" AS mt_bancos_nom_banco,
+     mov_valores."nro_cta_cte" AS mov_valores_nro_cta_cte,
+     mov_valores."ref_deposito" AS mov_valores_ref_deposito,
+     mov_val_det."tipo_val" AS mov_val_det_tipo_val,
+     mov_val_det."num_ref" AS mov_val_det_num_ref,
+     mov_val_det."bco_ref" AS mov_val_det_bco_ref,
+     b.nom_banco AS "banco_referencia",
+     mov_val_det."cod_cliente" AS mov_val_det_cod_cliente,
+     cl.nom_tit AS nom_cliente,
+     mov_val_det."vnecimiento" AS mov_val_det_vnecimiento,
+     mov_val_det."importe" AS mov_val_det_importe
+
+FROM
+     "public"."mov_valores" mov_valores INNER JOIN "public"."mov_val_det" mov_val_det ON mov_valores."nro_operacion" = mov_val_det."nro_operacion"
+     INNER JOIN "public"."caja" caja ON mov_valores."cod_caja" = caja."cod_caja"
+     INNER JOIN "public"."mt_monedas" mt_monedas ON mov_valores."cod_moneda" = mt_monedas."cod_moneda"
+     INNER JOIN "public"."mt_bancos" mt_bancos ON mov_valores."cod_banco" = mt_bancos."cod_banco"
+     INNER JOIN mt_clientes cl on cl.nro_docum = mov_val_det."cod_cliente"
+     INNER JOIN mt_bancos b on b.cod_banco =  mov_val_det."bco_ref"
+WHERE  mov_valores."nro_operacion" = $P{nro_operacion}]]>
+	</queryString>
+	<field name="mov_valores_nro_operacion" class="java.lang.Integer"/>
+	<field name="mov_valores_fecha_oper" class="java.sql.Date"/>
+	<field name="mov_valores_cod_caja" class="java.lang.String"/>
+	<field name="caja_nom_caja" class="java.lang.String"/>
+	<field name="mov_valores_cod_moneda" class="java.lang.Integer"/>
+	<field name="mt_monedas_nom_moneda" class="java.lang.String"/>
+	<field name="mov_valores_cod_banco" class="java.lang.String"/>
+	<field name="mt_bancos_nom_banco" class="java.lang.String"/>
+	<field name="mov_valores_nro_cta_cte" class="java.lang.String"/>
+	<field name="mov_valores_ref_deposito" class="java.lang.Integer"/>
+	<field name="mov_val_det_tipo_val" class="java.lang.Integer"/>
+	<field name="mov_val_det_num_ref" class="java.lang.Integer"/>
+	<field name="mov_val_det_bco_ref" class="java.lang.String"/>
+	<field name="banco_referencia" class="java.lang.String"/>
+	<field name="mov_val_det_cod_cliente" class="java.lang.String"/>
+	<field name="nom_cliente" class="java.lang.String"/>
+	<field name="mov_val_det_vnecimiento" class="java.sql.Date"/>
+	<field name="mov_val_det_importe" class="java.math.BigDecimal"/>
+	<variable name="sub_total" class="java.math.BigDecimal" resetType="Group" resetGroup="tipo_mov" calculation="Sum">
+		<variableExpression><![CDATA[$F{mov_val_det_importe}]]></variableExpression>
+	</variable>
+	<variable name="total_depositado" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{mov_val_det_importe}]]></variableExpression>
+	</variable>
+	<group name="tipo_mov">
+		<groupExpression><![CDATA[$F{mov_val_det_tipo_val}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField>
+					<reportElement x="6" y="0" width="100" height="15" uuid="28e50bea-6d9a-4942-ba48-4f91a289ae26"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mov_val_det_tipo_val} == 1 ? "EFECTIVO" : "CHEQUE"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="27">
+				<line>
+					<reportElement x="480" y="4" width="57" height="1" uuid="988c95c5-e2ea-46c2-a18c-a728c1c8364c"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<textField pattern="#,##0">
+					<reportElement x="463" y="7" width="71" height="15" uuid="9f439cfb-e3a9-4774-bd72-33aa0ddd8832"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{sub_total}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="5" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="181" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="451" y="6" width="100" height="20" uuid="68fa7b1d-debc-4ee9-a086-5f2f6fc9618f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="36" width="554" height="27" uuid="75e001e5-0837-4a54-9bc4-b2a3240ce818"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Movimiento de Valores]]></text>
+			</staticText>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="451" y="22" width="100" height="20" uuid="5665a90f-6d7a-417f-9519-3556668bda85"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="10" width="306" height="20" uuid="91c97159-a0f0-4ea8-b9ff-c0718833eb9d"/>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="74" width="50" height="20" uuid="a1fe3703-1bd7-4514-9149-a30c26992928"/>
+				<textFieldExpression><![CDATA[$F{mov_valores_nro_operacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="226" y="74" width="65" height="20" uuid="bc15802f-d642-4a7a-91fa-496c791456c6"/>
+				<textFieldExpression><![CDATA[$F{mov_valores_fecha_oper}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="74" width="78" height="20" uuid="520dbed3-344b-4a80-8fcf-e826f36cdcb8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. Operación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="74" width="66" height="20" uuid="037d90f4-8f5d-4317-8e7a-e2334a9542df"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Mov.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="74" width="26" height="20" uuid="2bd7dfd6-21a7-4cc9-8c40-a65067da6644"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Caja:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="347" y="74" width="172" height="20" uuid="d0add03a-4356-47a9-8652-686ab7b0fbb9"/>
+				<textFieldExpression><![CDATA["(" + $F{mov_valores_cod_caja} + ") " + $F{caja_nom_caja}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="100" width="42" height="20" uuid="2e0e465f-a40f-46ad-bdbb-c77b13728252"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Moneda:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="100" width="95" height="20" uuid="81dfc3d8-aea8-4f65-a9c0-b39de14ecca1"/>
+				<textFieldExpression><![CDATA[$F{mov_valores_cod_moneda} + " - " + $F{mt_monedas_nom_moneda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="100" width="37" height="20" uuid="192d1f65-b914-4cd9-aefd-0cd020efc478"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Banco: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="100" width="38" height="20" uuid="1f817e51-9ae6-4db8-8da9-01cd5179d051"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="197" y="100" width="140" height="20" uuid="8e8f0d57-23d6-4f62-8d09-a863208fbcff"/>
+				<textFieldExpression><![CDATA["(" + $F{mov_valores_cod_banco} + ") " +  $F{mt_bancos_nom_banco}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="379" y="100" width="161" height="20" uuid="ea89cee5-fdb7-4895-9e94-5d91430cfdee"/>
+				<textFieldExpression><![CDATA[$F{mov_valores_nro_cta_cte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="127" width="77" height="20" uuid="46aa3793-ec2b-4085-9f32-5f71979c8f4c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ref. Dep. Nro.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="127" width="100" height="20" uuid="48df0457-62c0-460e-bcac-fb01aa33b75e"/>
+				<textFieldExpression><![CDATA[$F{mov_valores_ref_deposito}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="218" y="163" width="54" height="15" uuid="75451c3c-ce3a-4add-87f2-f3638cef56a6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Referencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="163" width="98" height="15" uuid="f2cd25a7-1118-4a02-9033-171b1b4b7b5b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Banco / Ent.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="163" width="51" height="15" uuid="0fdf414f-2c41-4b9b-9fcd-ae9e19d95f1c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="163" width="26" height="15" uuid="cd344fa8-6226-4504-a6bd-5e3757af027c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vto.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="163" width="54" height="15" uuid="28c63d7d-73c3-4ecb-8094-b0cbcaf4add4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="178" width="546" height="1" uuid="2e9de4e1-be75-41f4-bd07-1558779862a0"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="220" y="2" width="52" height="15" uuid="0e90b28e-9446-4839-95eb-9c5a27faeb35"/>
+				<textFieldExpression><![CDATA[$F{mov_val_det_num_ref}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="2" width="41" height="15" uuid="8bb2dd9e-bccd-463b-986f-75f6f1e9f654"/>
+				<textFieldExpression><![CDATA[$F{mov_val_det_cod_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="2" width="137" height="15" uuid="72b7a3ca-40c5-484b-acce-93378dba4099"/>
+				<textFieldExpression><![CDATA[$F{nom_cliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="414" y="2" width="42" height="15" uuid="d9d25014-9517-4999-8356-29e722533ab2"/>
+				<textFieldExpression><![CDATA[$F{mov_val_det_vnecimiento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="463" y="2" width="71" height="15" uuid="12836ece-dbcf-42fc-938c-0399a964b3fa"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mov_val_det_importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="2" width="16" height="15" uuid="23126692-b0a6-4de5-ae3f-b5e4d18f1d3f"/>
+				<textFieldExpression><![CDATA[$F{mov_val_det_bco_ref}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="2" width="98" height="15" uuid="0629d90c-8de3-47f6-876e-97fbdee7be47"/>
+				<textFieldExpression><![CDATA[$F{banco_referencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="430" y="4" width="80" height="20" uuid="10a6285a-61f4-4a14-8797-561cb03457fe"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="4" width="100" height="20" uuid="63605602-4e27-414e-a426-094390116cf1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="508" y="4" width="40" height="20" uuid="52d02653-3718-4b3e-8dfd-dd1585ddb002"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="135" splitType="Stretch">
+			<textField>
+				<reportElement x="430" y="81" width="100" height="15" uuid="29801d0f-d780-4377-a58a-276eab6cf902"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="430" y="78" width="100" height="1" uuid="4d8dc43d-11f8-45ad-a704-e2c53d4ecd4c"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="430" y="93" width="100" height="15" uuid="c94513fc-5167-4130-988b-b2ee951232cb"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="4" width="546" height="1" uuid="13d5e592-ed8d-4c29-a1cf-0585a1fe0ecb"/>
+			</line>
+			<line>
+				<reportElement x="2" y="23" width="546" height="1" uuid="2f472072-4c8e-4cad-950b-fc4931f5c7af"/>
+			</line>
+			<textField evaluationTime="Report" pattern="#,##0">
+				<reportElement x="435" y="7" width="100" height="15" uuid="0da9b83b-2cdd-4fea-a542-dd7e7bbef338"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_depositado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="333" y="7" width="100" height="15" uuid="790d4e8b-c487-401c-90bc-8a8f4f444278"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Depositado]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

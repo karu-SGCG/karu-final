@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.ComandaDet" table="comanda_det" schema="public">
+        <composite-id name="id" class="com.entidades.ComandaDetId">
+            <key-property name="nroComanda" type="int">
+                <column name="nro_comanda" />
+            </key-property>
+            <key-property name="linea" type="short">
+                <column name="linea" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="comandaCab" class="com.entidades.ComandaCab" update="false" insert="false" fetch="select">
+            <column name="nro_comanda" not-null="true" />
+        </many-to-one>
+        <property name="estado" type="java.lang.Character">
+            <column name="estado" length="1" />
+        </property>
+        <property name="codArticulo" type="string">
+            <column name="cod_articulo" length="20" not-null="true" />
+        </property>
+        <property name="cantidad" type="big_decimal">
+            <column name="cantidad" precision="14" not-null="true" />
+        </property>
+        <property name="subtotal" type="big_decimal">
+            <column name="subtotal" precision="14" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

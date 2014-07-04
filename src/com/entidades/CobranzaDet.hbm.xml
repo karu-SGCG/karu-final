@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.CobranzaDet" table="cobranza_det" schema="public">
+        <composite-id name="id" class="com.entidades.CobranzaDetId">
+            <key-property name="nroRecibo" type="int">
+                <column name="nro_recibo" />
+            </key-property>
+            <key-property name="linea" type="int">
+                <column name="linea" />
+            </key-property>
+        </composite-id>
+        <property name="codCaja" type="string">
+            <column name="cod_caja" length="5" not-null="true" />
+        </property>
+        <property name="nroFactura" type="int">
+            <column name="nro_factura" not-null="true" />
+        </property>
+        <property name="fecVto" type="timestamp">
+            <column name="fec_vto" length="29" not-null="true" />
+        </property>
+        <property name="saldo" type="big_decimal">
+            <column name="saldo" precision="14" not-null="true" />
+        </property>
+        <property name="importePagado" type="big_decimal">
+            <column name="importe_pagado" precision="14" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <property name="codSucTribut" type="string">
+            <column name="cod_suc_tribut" length="3" />
+        </property>
+        <property name="codSucFac" type="string">
+            <column name="cod_suc_fac" length="3" />
+        </property>
+        <property name="codTributFac" type="string">
+            <column name="cod_tribut_fac" length="3" />
+        </property>
+        <property name="codCliente" type="string">
+            <column name="cod_cliente" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

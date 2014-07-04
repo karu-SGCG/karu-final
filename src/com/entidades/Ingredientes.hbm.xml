@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.Ingredientes" table="ingredientes" schema="public">
+        <composite-id name="id" class="com.entidades.IngredientesId">
+            <key-property name="articulo" type="string">
+                <column name="articulo" length="20" />
+            </key-property>
+            <key-property name="linea" type="int">
+                <column name="linea" />
+            </key-property>
+        </composite-id>
+        <property name="cantidad" type="big_decimal">
+            <column name="cantidad" precision="14" />
+        </property>
+        <property name="medida" type="string">
+            <column name="medida" length="5" />
+        </property>
+        <property name="costo" type="big_decimal">
+            <column name="costo" precision="14" />
+        </property>
+        <property name="ingrediente" type="string">
+            <column name="ingrediente" length="30" />
+        </property>
+        <property name="porciones" type="java.lang.Integer">
+            <column name="porciones" />
+        </property>
+    </class>
+</hibernate-mapping>

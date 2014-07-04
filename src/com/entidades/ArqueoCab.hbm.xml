@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.ArqueoCab" table="arqueo_cab" schema="public">
+        <id name="nroOperacion" type="int">
+            <column name="nro_operacion" />
+            <generator class="assigned" />
+        </id>
+        <property name="codCaja" type="string">
+            <column name="cod_caja" length="10" />
+        </property>
+        <property name="aperturaMn" type="big_decimal">
+            <column name="apertura_mn" precision="14" />
+        </property>
+        <property name="fechaDesde" type="timestamp">
+            <column name="fecha_desde" length="29" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="estado" length="1" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="15" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <property name="fechaHasta" type="timestamp">
+            <column name="fecha_hasta" length="29" />
+        </property>
+        <property name="codAjuste" type="java.lang.Integer">
+            <column name="cod_ajuste" />
+        </property>
+        <property name="importeAjuste" type="big_decimal">
+            <column name="importe_ajuste" precision="14" />
+        </property>
+    </class>
+</hibernate-mapping>

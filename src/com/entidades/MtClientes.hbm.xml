@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtClientes" table="mt_clientes" schema="public">
+        <id name="codTit" type="string">
+            <column name="cod_tit" length="20" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="mtSexos" class="com.entidades.MtSexos" fetch="select">
+            <column name="cod_sexo" length="1" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtCiudades" class="com.entidades.MtCiudades" fetch="select">
+            <column name="cod_ciudad" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtEstcivil" class="com.entidades.MtEstcivil" fetch="select">
+            <column name="cod_estcivil" length="5" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtTiposClientes" class="com.entidades.MtTiposClientes" fetch="select">
+            <column name="cod_tipo_cli" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtTipoDocumentos" class="com.entidades.MtTipoDocumentos" fetch="select">
+            <column name="tipo_docum" not-null="true" />
+        </many-to-one>
+        <property name="nroDocum" type="string">
+            <column name="nro_docum" length="20" not-null="true" />
+        </property>
+        <property name="nomTit" type="string">
+            <column name="nom_tit" length="200" not-null="true" />
+        </property>
+        <property name="dirTitular" type="string">
+            <column name="dir_titular" length="200" not-null="true" />
+        </property>
+        <property name="telTitular" type="string">
+            <column name="tel_titular" length="30" />
+        </property>
+        <property name="celTitular" type="string">
+            <column name="cel_titular" length="30" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" />
+        </property>
+        <property name="esActivo" type="char">
+            <column name="es_activo" length="1" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="comandaCabs" table="comanda_cab" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_tit" length="20" />
+            </key>
+            <one-to-many class="com.entidades.ComandaCab" />
+        </set>
+        <set name="presupuestoCabs" table="presupuesto_cab" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_tit" length="20" />
+            </key>
+            <one-to-many class="com.entidades.PresupuestoCab" />
+        </set>
+        <set name="facturaVentas" table="factura_venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_cliente" length="20" />
+            </key>
+            <one-to-many class="com.entidades.FacturaVenta" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtComprobantes" table="mt_comprobantes" schema="public">
+        <id name="nroTrans" type="int">
+            <column name="nro_trans" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="caja" class="com.entidades.Caja" fetch="select">
+            <column name="cod_caja" length="5" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtSucursales" class="com.entidades.MtSucursales" fetch="select">
+            <column name="cod_sucursal" length="5" not-null="true" />
+        </many-to-one>
+        <property name="codTribut" type="string">
+            <column name="cod_tribut" length="3" />
+        </property>
+        <property name="codSucFac" type="string">
+            <column name="cod_suc_fac" length="3" />
+        </property>
+        <property name="nroFactura" type="java.lang.Integer">
+            <column name="nro_factura" />
+        </property>
+        <property name="timbrado" type="string">
+            <column name="timbrado" length="15" />
+        </property>
+        <property name="vencimiento" type="date">
+            <column name="vencimiento" length="13" />
+        </property>
+        <property name="tipoDocum" type="string">
+            <column name="tipo_docum" length="2" />
+        </property>
+        <property name="esActivo" type="boolean">
+            <column name="es_activo" not-null="true" />
+        </property>
+        <property name="inicioLote" type="java.lang.Integer">
+            <column name="inicio_lote" />
+        </property>
+        <property name="finLote" type="java.lang.Integer">
+            <column name="fin_lote" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

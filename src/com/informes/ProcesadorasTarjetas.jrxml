@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4119df1a-664f-4a36-9590-481fe839d072">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     mt_proc_tarjetas."id_proc" AS mt_proc_tarjetas_id_proc,
+     mt_proc_tarjetas."nombre_proc" AS mt_proc_tarjetas_nombre_proc,
+     mt_proc_tarjetas."comision" AS mt_proc_tarjetas_comision
+FROM
+     "public"."mt_proc_tarjetas" mt_proc_tarjetas]]>
+	</queryString>
+	<field name="mt_proc_tarjetas_id_proc" class="java.lang.Integer"/>
+	<field name="mt_proc_tarjetas_nombre_proc" class="java.lang.String"/>
+	<field name="mt_proc_tarjetas_comision" class="java.math.BigDecimal"/>
+	<variable name="TotalRegistros" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="0" width="100" height="20" uuid="eeeb0ea7-3b39-45f7-b961-a77ec4918785"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="35" width="554" height="27" uuid="9097aea4-305f-489d-bb1f-b3b11620297c"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Procesadoras de Tarjetas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="306" height="20" uuid="77952afa-923a-4508-8f16-0bc8e8f5726f"/>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="455" y="14" width="100" height="20" uuid="574490ea-078d-44a6-8461-bce524f53f0c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="120" y="14" width="57" height="20" uuid="a48be48a-8f5b-41b0-b3d5-6ff87ac07175"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="14" width="100" height="20" uuid="d57a57f4-2508-4323-99fd-2fabcfd5b34c"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="13" width="71" height="20" uuid="42447c57-3e10-45d4-9f39-850849084846"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comisión %]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="34" width="526" height="1" uuid="15d55f41-4866-4730-9262-c8c4d39161b2"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="4" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="120" y="1" width="41" height="20" uuid="46cea95b-8e5f-469e-8079-fa83a03e5b52"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mt_proc_tarjetas_id_proc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="192" y="1" width="115" height="20" uuid="c8912bb1-21e1-4143-bd27-2b3f90106b67"/>
+				<textFieldExpression><![CDATA[$F{mt_proc_tarjetas_nombre_proc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="1" width="33" height="20" uuid="2329d722-7d97-4069-87c0-b042111ee5ad"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mt_proc_tarjetas_comision}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="437" y="5" width="80" height="20" uuid="10dcd4f9-e1db-4020-bcb6-9a776fd3e75c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="5" width="40" height="20" uuid="adf170e0-02ba-41f6-87c8-ff1d20478a79"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="5" width="100" height="20" uuid="b7eacadc-2d02-4bcc-909d-70cc7a382040"/>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="324" y="2" width="159" height="20" uuid="f016ea22-84c6-4cfd-924f-e039840b4f69"/>
+				<textFieldExpression><![CDATA["Total de Registros: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

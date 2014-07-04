@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Listado de Paises" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="404a485c-14bd-4497-ac26-20b27b382f84">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from mt_tipo_impuestos;]]>
+	</queryString>
+	<field name="cod_tipo_impuesto" class="java.lang.Integer"/>
+	<field name="nom_tipo_impuesto" class="java.lang.String"/>
+	<field name="porcentaje" class="java.math.BigDecimal"/>
+	<field name="es_activo" class="java.lang.String"/>
+	<field name="usuario_mod" class="java.lang.String"/>
+	<field name="accion_mod" class="java.lang.String"/>
+	<field name="fecha_mod" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="116" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="10" width="228" height="20" uuid="d84bb844-2f73-42bf-856f-29882c086303"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="47" width="555" height="36" uuid="4055053a-a709-471b-9001-efcee42039c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipos de Impuestos]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="445" y="7" width="100" height="20" uuid="5f75e0da-107f-40c3-97ec-82dfa3eacf64"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="445" y="27" width="100" height="20" uuid="4a51057c-c58d-46f7-be69-37929f4fa4dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="31" y="85" width="85" height="20" uuid="101c8a45-6389-4a16-8f78-9baf33596a62"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="85" width="219" height="20" uuid="a56522c0-b3f2-452f-9f82-6f02bfb48640"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<line>
+				<reportElement x="13" y="110" width="532" height="1" uuid="e2e5a690-1931-4274-8166-8b816c6ef7b3"/>
+			</line>
+			<staticText>
+				<reportElement x="353" y="85" width="85" height="20" uuid="0c7eccac-016c-4932-97fa-d9cc878d403b"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Porcentaje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="85" width="56" height="20" uuid="c5d12f70-7984-43d4-a009-f4a9d4a16859"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[Activo]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="31" y="1" width="85" height="20" uuid="0531d1eb-7583-499c-8496-2fbb3a36ba64"/>
+				<textFieldExpression><![CDATA[$F{cod_tipo_impuesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="1" width="219" height="20" uuid="1d4f50df-0f9b-4301-863b-7c811b493a82"/>
+				<textFieldExpression><![CDATA[$F{nom_tipo_impuesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="1" width="85" height="20" uuid="7f16e20a-44a6-49f4-a390-580cc6c445ff"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{porcentaje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="1" width="56" height="20" uuid="a7cb2330-1eaf-430d-a484-41065eae7282"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{es_activo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="9" width="100" height="20" uuid="497113ad-edd3-4d44-b445-a0df06e2a151"/>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="445" y="9" width="62" height="20" uuid="825723c6-ed79-406e-ad02-35b57d0f2c42"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="507" y="9" width="40" height="20" uuid="58268ad9-4749-4ee3-9894-73f3a15641d5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="226" y="3" width="178" height="20" uuid="f3a05182-8427-475c-bd19-8fe60390bcfb"/>
+				<textFieldExpression><![CDATA["Total de Registros: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

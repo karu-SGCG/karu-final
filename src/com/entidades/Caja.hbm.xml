@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.Caja" table="caja" schema="public">
+        <id name="codCaja" type="string">
+            <column name="cod_caja" length="5" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="mtSucursales" class="com.entidades.MtSucursales" fetch="select">
+            <column name="cod_sucursal" length="5" not-null="true" />
+        </many-to-one>
+        <property name="nomCaja" type="string">
+            <column name="nom_caja" length="30" not-null="true" />
+        </property>
+        <property name="nroRecibo" type="java.lang.Integer">
+            <column name="nro_recibo" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="cobranzas" table="cobranza" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_caja" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.Cobranza" />
+        </set>
+        <set name="cobranzas_1" table="cobranza" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_caja" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.Cobranza" />
+        </set>
+        <set name="ordenPagos" table="orden_pago" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_caja" length="5" />
+            </key>
+            <one-to-many class="com.entidades.OrdenPago" />
+        </set>
+        <set name="facturaVentas" table="factura_venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_caja" length="5" />
+            </key>
+            <one-to-many class="com.entidades.FacturaVenta" />
+        </set>
+        <set name="mtCajeroses" table="mt_cajeros" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_caja" length="5" />
+            </key>
+            <one-to-many class="com.entidades.MtCajeros" />
+        </set>
+        <set name="mtComprobanteses" table="mt_comprobantes" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_caja" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtComprobantes" />
+        </set>
+        <set name="facturaCompras" table="factura_compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_caja" length="5" />
+            </key>
+            <one-to-many class="com.entidades.FacturaCompra" />
+        </set>
+        <set name="movValoreses" table="mov_valores" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_caja" length="5" />
+            </key>
+            <one-to-many class="com.entidades.MovValores" />
+        </set>
+    </class>
+</hibernate-mapping>

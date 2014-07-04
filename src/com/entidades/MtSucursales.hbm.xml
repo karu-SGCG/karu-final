@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtSucursales" table="mt_sucursales" schema="public">
+        <id name="codSucursal" type="string">
+            <column name="cod_sucursal" length="5" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="mtEmpresas" class="com.entidades.MtEmpresas" fetch="select">
+            <column name="cod_emp" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtCiudades" class="com.entidades.MtCiudades" fetch="select">
+            <column name="cod_ciudad" not-null="true" />
+        </many-to-one>
+        <property name="nomSucursal" type="string">
+            <column name="nom_sucursal" length="50" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="200" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="30" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="mtCajeroses" table="mt_cajeros" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" />
+            </key>
+            <one-to-many class="com.entidades.MtCajeros" />
+        </set>
+        <set name="facturaCompras" table="factura_compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_suc" length="5" />
+            </key>
+            <one-to-many class="com.entidades.FacturaCompra" />
+        </set>
+        <set name="presupuestoCabs" table="presupuesto_cab" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" />
+            </key>
+            <one-to-many class="com.entidades.PresupuestoCab" />
+        </set>
+        <set name="prProducs" table="pr_produc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_suc" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.PrProduc" />
+        </set>
+        <set name="mtVendedoreses" table="mt_vendedores" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtVendedores" />
+        </set>
+        <set name="cajas" table="caja" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.Caja" />
+        </set>
+        <set name="prProduccions" table="pr_produccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.PrProduccion" />
+        </set>
+        <set name="stExistenciaSucs" table="st_existencia_suc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.StExistenciaSuc" />
+        </set>
+        <set name="facturaVentas" table="factura_venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_suc" length="5" />
+            </key>
+            <one-to-many class="com.entidades.FacturaVenta" />
+        </set>
+        <set name="stExistenciaSucs_1" table="st_existencia_suc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.StExistenciaSuc" />
+        </set>
+        <set name="prProduccions_1" table="pr_produccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.PrProduccion" />
+        </set>
+        <set name="mtUsuarioses" table="mt_usuarios" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtUsuarios" />
+        </set>
+        <set name="mtComprobanteses" table="mt_comprobantes" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_sucursal" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtComprobantes" />
+        </set>
+    </class>
+</hibernate-mapping>

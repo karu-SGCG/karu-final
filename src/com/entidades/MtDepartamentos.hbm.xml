@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtDepartamentos" table="mt_departamentos" schema="public">
+        <id name="codDepartamento" type="int">
+            <column name="cod_departamento" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="mtPaises" class="com.entidades.MtPaises" fetch="select">
+            <column name="cod_pais" not-null="true" />
+        </many-to-one>
+        <property name="nomDepartamento" type="string">
+            <column name="nom_departamento" length="50" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="mtCiudadeses" table="mt_ciudades" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_departamento" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtCiudades" />
+        </set>
+        <set name="mtCiudadeses_1" table="mt_ciudades" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_departamento" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtCiudades" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Recetas" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="4119df1a-664f-4a36-9590-481fe839d072">
+	<property name="ireport.zoom" value="1.771561000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1"/>
+	<parameter name="receta" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT ingredientes."articulo" AS ingredientes_articulo,
+ingredientes."linea" AS ingredientes_linea,
+nom_receta."nom_articulo",
+mt_articulos."cod_articulo" AS mt_articulos_cod_articulo,
+mt_articulos."nom_articulo" AS mt_articulos_nom_articulo,
+ingredientes."cantidad" AS ingredientes_cantidad,
+mt_unid_medidas."desc_unidad" AS mt_unid_medidas_desc_unidad,
+ingredientes."costo" AS ingredientes_costo,
+ingredientes."porciones" AS ingredientes_porciones,
+mt_articulos."cod_marca" AS mt_articulos_cod_marca,
+mt_articulos."referencia" AS mt_articulos_referencia
+FROM  "public"."ingredientes" ingredientes
+INNER join "public"."mt_articulos"  mt_articulos ON mt_articulos."cod_articulo" = ingredientes."ingrediente"
+left outer join "public"."mt_articulos"  nom_receta ON nom_receta."cod_articulo" = upper($P{receta})
+INNER JOIN "public"."mt_unid_medidas" mt_unid_medidas  ON mt_unid_medidas."cod_unidad" = ingredientes."medida"
+WHERE upper(ingredientes."articulo")  = upper($P{receta}) --and  mt_articulos."es_materia_prima" = 'M'
+ORDER BY ingredientes."linea"]]>
+	</queryString>
+	<field name="ingredientes_articulo" class="java.lang.String"/>
+	<field name="ingredientes_linea" class="java.lang.Integer"/>
+	<field name="nom_articulo" class="java.lang.String"/>
+	<field name="mt_articulos_cod_articulo" class="java.lang.String"/>
+	<field name="mt_articulos_nom_articulo" class="java.lang.String"/>
+	<field name="ingredientes_cantidad" class="java.math.BigDecimal"/>
+	<field name="mt_unid_medidas_desc_unidad" class="java.lang.String"/>
+	<field name="ingredientes_costo" class="java.math.BigDecimal"/>
+	<field name="ingredientes_porciones" class="java.lang.Integer"/>
+	<field name="mt_articulos_cod_marca" class="java.lang.String"/>
+	<field name="mt_articulos_referencia" class="java.lang.String"/>
+	<variable name="TotalRegistros" class="java.lang.String"/>
+	<variable name="producto" class="java.lang.String"/>
+	<variable name="ingredientes_porciones_1" class="java.lang.Integer" resetType="Page" calculation="First">
+		<variableExpression><![CDATA[$F{ingredientes_porciones}]]></variableExpression>
+	</variable>
+	<group name="mt_departamentos_cod_departamento">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<group name="mt_departamentos_cod_pais">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="0" width="100" height="20" uuid="eeeb0ea7-3b39-45f7-b961-a77ec4918785"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="29" width="554" height="27" uuid="9097aea4-305f-489d-bb1f-b3b11620297c"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Receta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="306" height="20" uuid="77952afa-923a-4508-8f16-0bc8e8f5726f"/>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="455" y="14" width="100" height="20" uuid="574490ea-078d-44a6-8461-bce524f53f0c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="56" y="45" width="69" height="20" uuid="a48be48a-8f5b-41b0-b3d5-6ff87ac07175"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="45" width="165" height="20" uuid="d57a57f4-2508-4323-99fd-2fabcfd5b34c"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="44" width="48" height="20" uuid="42447c57-3e10-45d4-9f39-850849084846"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="44" width="97" height="20" uuid="4b92de34-50de-4c68-84ae-46051f6876a7"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unid. Medida]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="64" width="526" height="1" uuid="15d55f41-4866-4730-9262-c8c4d39161b2"/>
+			</line>
+			<staticText>
+				<reportElement x="16" y="12" width="52" height="20" uuid="9eb1f757-9e03-40c9-824f-62ec64c6e778"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="12" width="54" height="20" uuid="124ba9d0-9638-4f90-885f-9878fba76404"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Porciones]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="68" y="12" width="285" height="20" uuid="1b9e241b-13d8-4756-88ad-926d29f3f5ba"/>
+				<textFieldExpression><![CDATA["(" + $P{receta}.toUpperCase() + ") " + $F{nom_articulo}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Page" isBlankWhenNull="true">
+				<reportElement x="422" y="12" width="33" height="20" uuid="47b12a43-126f-4e12-82aa-e008b58bacb4"/>
+				<textFieldExpression><![CDATA[$F{ingredientes_porciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="57" y="0" width="69" height="17" uuid="50191593-1f64-47e3-bbbd-8383932a703b"/>
+				<textFieldExpression><![CDATA[$F{mt_articulos_cod_articulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="0" width="165" height="17" uuid="ae4bc095-3acb-474e-b5bb-2471c22ac9e9"/>
+				<textFieldExpression><![CDATA[$F{mt_articulos_nom_articulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="0" width="21" height="17" uuid="c14163a0-03cd-49f0-9d1a-628004d42e21"/>
+				<textFieldExpression><![CDATA[$F{ingredientes_linea}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="307" y="0" width="59" height="17" uuid="1c99ccbc-9c06-4dd7-acc4-71e9a0d39724"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ingredientes_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="0" width="97" height="17" uuid="68cb8710-19a5-4305-abc1-ad3be485c704"/>
+				<textFieldExpression><![CDATA[$F{mt_unid_medidas_desc_unidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="437" y="0" width="80" height="20" uuid="10dcd4f9-e1db-4020-bcb6-9a776fd3e75c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="adf170e0-02ba-41f6-87c8-ff1d20478a79"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="b7eacadc-2d02-4bcc-909d-70cc7a382040"/>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="16" width="554" height="15" uuid="2a04b075-f32e-4297-ad84-1ded7439f4b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[*** Fin del Listado ***]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

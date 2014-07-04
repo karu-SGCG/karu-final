@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtConversionUnidades" table="mt_conversion_unidades" schema="public">
+        <composite-id name="id" class="com.entidades.MtConversionUnidadesId">
+            <key-property name="codUniOri" type="string">
+                <column name="cod_uni_ori" length="5" />
+            </key-property>
+            <key-property name="codUniDes" type="string">
+                <column name="cod_uni_des" length="5" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="mtUnidMedidas" class="com.entidades.MtUnidMedidas" update="false" insert="false" fetch="select">
+            <column name="cod_uni_des" length="5" not-null="true" />
+        </many-to-one>
+        <property name="factor" type="big_decimal">
+            <column name="factor" precision="12" scale="3" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

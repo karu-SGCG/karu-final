@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtMonedas" table="mt_monedas" schema="public">
+        <id name="codMoneda" type="int">
+            <column name="cod_moneda" />
+            <generator class="assigned" />
+        </id>
+        <property name="nomMoneda" type="string">
+            <column name="nom_moneda" length="30" not-null="true" />
+        </property>
+        <property name="simbolo" type="string">
+            <column name="simbolo" length="5" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="presupuestoCabs" table="presupuesto_cab" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda" />
+            </key>
+            <one-to-many class="com.entidades.PresupuestoCab" />
+        </set>
+        <set name="facturaVentas" table="factura_venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda" />
+            </key>
+            <one-to-many class="com.entidades.FacturaVenta" />
+        </set>
+        <set name="arqueoDets" table="arqueo_det" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda" />
+            </key>
+            <one-to-many class="com.entidades.ArqueoDet" />
+        </set>
+        <set name="tsBancosCtases" table="ts_bancos_ctas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.TsBancosCtas" />
+        </set>
+        <set name="movValoreses" table="mov_valores" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda" />
+            </key>
+            <one-to-many class="com.entidades.MovValores" />
+        </set>
+        <set name="tiposCambioses" table="tipos_cambios" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.TiposCambios" />
+        </set>
+        <set name="mtArticulosesForCodMonedaVenta" table="mt_articulos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda_venta" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtArticulos" />
+        </set>
+        <set name="mtArticulosesForCodMonedaCompra" table="mt_articulos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda_compra" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtArticulos" />
+        </set>
+        <set name="mtArticulosesForCodMonedaVenta_1" table="mt_articulos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda_venta" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtArticulos" />
+        </set>
+        <set name="mtArticulosesForCodMonedaCompra_1" table="mt_articulos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda_compra" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtArticulos" />
+        </set>
+        <set name="facturaCompras" table="factura_compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_moneda" />
+            </key>
+            <one-to-many class="com.entidades.FacturaCompra" />
+        </set>
+    </class>
+</hibernate-mapping>

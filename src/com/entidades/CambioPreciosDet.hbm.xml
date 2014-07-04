@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.CambioPreciosDet" table="cambio_precios_det" schema="public">
+        <composite-id name="id" class="com.entidades.CambioPreciosDetId">
+            <key-property name="nroTrans" type="int">
+                <column name="nro_trans" />
+            </key-property>
+            <key-property name="codArticulo" type="string">
+                <column name="cod_articulo" length="20" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="cambioPreciosCab" class="com.entidades.CambioPreciosCab" update="false" insert="false" fetch="select">
+            <column name="nro_trans" not-null="true" />
+        </many-to-one>
+        <property name="precioCostoActual" type="big_decimal">
+            <column name="precio_costo_actual" precision="14" />
+        </property>
+        <property name="precioVentaActual" type="big_decimal">
+            <column name="precio_venta_actual" precision="14" />
+        </property>
+        <property name="precioVentaNuevo" type="big_decimal">
+            <column name="precio_venta_nuevo" precision="14" />
+        </property>
+        <property name="variacion" type="big_decimal">
+            <column name="variacion" precision="14" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

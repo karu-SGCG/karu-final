@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.PrProduc" table="pr_produc" schema="public">
+        <id name="codProduccion" type="int">
+            <column name="cod_produccion" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="mtEstadosArt" class="com.entidades.MtEstadosArt" fetch="select">
+            <column name="fk_estado" length="10" />
+        </many-to-one>
+        <many-to-one name="mtSucursales" class="com.entidades.MtSucursales" fetch="select">
+            <column name="fk_suc" length="5" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtEmpresas" class="com.entidades.MtEmpresas" fetch="select">
+            <column name="fk_emp" />
+        </many-to-one>
+        <many-to-one name="mtArticulos" class="com.entidades.MtArticulos" fetch="select">
+            <column name="fk_art" length="20" />
+        </many-to-one>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <property name="fechaVto" type="timestamp">
+            <column name="fecha_vto" length="29" not-null="true" />
+        </property>
+        <property name="fechaElab" type="timestamp">
+            <column name="fecha_elab" length="29" not-null="true" />
+        </property>
+        <property name="lote" type="string">
+            <column name="lote" length="1" />
+        </property>
+        <property name="cantidad" type="big_decimal">
+            <column name="cantidad" precision="14" not-null="true" />
+        </property>
+        <property name="estadoProd" type="string">
+            <column name="estado_prod" length="1" not-null="true" />
+        </property>
+        <property name="refComanda" type="int">
+            <column name="ref_comanda" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FacturaVenta" pageWidth="595" pageHeight="510" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="22a8bfe3-e481-439f-a36a-269e386e60ab">
+	<property name="ireport.zoom" value="1.3310000000000073"/>
+	<property name="ireport.x" value="60"/>
+	<property name="ireport.y" value="147"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Desarrollo\\KARU_SGCG\\src\\com\\informes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nroTrans" class="java.lang.Integer"/>
+	<parameter name="letras" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     factura_venta."nro_trans" AS factura_venta_nro_trans,
+     factura_venta."fecha" AS factura_venta_fecha,
+     factura_venta."total_gravada" AS factura_venta_total_gravada,
+     factura_venta."total_exenta" AS factura_venta_total_exenta,
+     factura_venta."total_iva_10" AS factura_venta_total_iva_10,
+     factura_venta."total_iva_5" AS factura_venta_total_iva_5,
+     factura_venta."estado" AS factura_venta_estado,
+     factura_venta."nro_comanda" AS factura_venta_nro_comanda,
+     factura_venta."usuario_mod" AS factura_venta_usuario_mod,
+     factura_venta."accion_mod" AS factura_venta_accion_mod,
+     factura_venta."fecha_mod" AS factura_venta_fecha_mod,
+     factura_venta."cod_suc_fac" AS factura_venta_cod_suc_fac,
+     factura_venta."cod_tribut_fac" AS factura_venta_cod_tribut_fac,
+     factura_venta."cod_suc" AS factura_venta_cod_suc,
+     factura_venta."cod_caja" AS factura_venta_cod_caja,
+     factura_venta."tipo_comprobante" AS factura_venta_tipo_comprobante,
+     factura_venta."nro_docum" AS factura_venta_nro_docum,
+     factura_venta."cond_pago" AS factura_venta_cond_pago,
+     factura_venta."vencimiento" AS factura_venta_vencimiento,
+     factura_venta."cod_moneda" AS factura_venta_cod_moneda,
+     factura_venta."tipo_cambio" AS factura_venta_tipo_cambio,
+     factura_venta."nota_credito" AS factura_venta_nota_credito,
+     factura_venta."observacion" AS factura_venta_observacion,
+     factura_venta."cod_cliente" AS factura_venta_cod_cliente,
+     factura_venta."forma_pago" AS factura_venta_forma_pago,
+     mt_clientes."nro_docum" AS mt_clientes_nro_docum,
+     mt_clientes."nom_tit" AS mt_clientes_nom_tit,
+     mt_clientes."dir_titular" AS mt_clientes_dir_titular,
+     mt_clientes."tel_titular" AS mt_clientes_tel_titular,
+     mt_clientes."cel_titular" AS mt_clientes_cel_titular,
+     mt_clientes."cod_tipo_cli" AS mt_clientes_cod_tipo_cli,
+     mt_clientes."tipo_docum" AS mt_clientes_tipo_docum,
+     mt_clientes."cod_tit" AS mt_clientes_cod_tit,
+     mt_condicion_pago."cod_cond" AS mt_condicion_pago_cod_cond,
+     mt_condicion_pago."descripcion" AS mt_condicion_pago_descripcion,
+     mt_condicion_pago."plazo" AS mt_condicion_pago_plazo,
+     c.timbrado, c.vencimiento
+FROM
+     "public"."mt_clientes" mt_clientes INNER JOIN "public"."factura_venta" factura_venta ON mt_clientes."cod_tit" = factura_venta."cod_cliente"
+     INNER JOIN "public"."mt_condicion_pago" mt_condicion_pago ON factura_venta."cond_pago" = mt_condicion_pago."cod_cond"
+INNER JOIN mt_comprobantes c on c.cod_tribut =  factura_venta."cod_tribut_fac" and c.cod_suc_fac = factura_venta."cod_suc_fac" and c.tipo_docum = 'FT'
+WHERE factura_venta."nro_trans" = $P{nroTrans}]]>
+	</queryString>
+	<field name="factura_venta_nro_trans" class="java.lang.Integer"/>
+	<field name="factura_venta_fecha" class="java.sql.Timestamp"/>
+	<field name="factura_venta_total_gravada" class="java.math.BigDecimal"/>
+	<field name="factura_venta_total_exenta" class="java.math.BigDecimal"/>
+	<field name="factura_venta_total_iva_10" class="java.math.BigDecimal"/>
+	<field name="factura_venta_total_iva_5" class="java.math.BigDecimal"/>
+	<field name="factura_venta_estado" class="java.lang.String"/>
+	<field name="factura_venta_nro_comanda" class="java.lang.Integer"/>
+	<field name="factura_venta_usuario_mod" class="java.lang.String"/>
+	<field name="factura_venta_accion_mod" class="java.lang.String"/>
+	<field name="factura_venta_fecha_mod" class="java.sql.Timestamp"/>
+	<field name="factura_venta_cod_suc_fac" class="java.lang.String"/>
+	<field name="factura_venta_cod_tribut_fac" class="java.lang.String"/>
+	<field name="factura_venta_cod_suc" class="java.lang.String"/>
+	<field name="factura_venta_cod_caja" class="java.lang.String"/>
+	<field name="factura_venta_tipo_comprobante" class="java.lang.String"/>
+	<field name="factura_venta_nro_docum" class="java.lang.Integer"/>
+	<field name="factura_venta_cond_pago" class="java.lang.Integer"/>
+	<field name="factura_venta_vencimiento" class="java.sql.Date"/>
+	<field name="factura_venta_cod_moneda" class="java.lang.Integer"/>
+	<field name="factura_venta_tipo_cambio" class="java.math.BigDecimal"/>
+	<field name="factura_venta_nota_credito" class="java.lang.String"/>
+	<field name="factura_venta_observacion" class="java.lang.String"/>
+	<field name="factura_venta_cod_cliente" class="java.lang.String"/>
+	<field name="factura_venta_forma_pago" class="java.lang.Integer"/>
+	<field name="mt_clientes_nro_docum" class="java.lang.String"/>
+	<field name="mt_clientes_nom_tit" class="java.lang.String"/>
+	<field name="mt_clientes_dir_titular" class="java.lang.String"/>
+	<field name="mt_clientes_tel_titular" class="java.lang.String"/>
+	<field name="mt_clientes_cel_titular" class="java.lang.String"/>
+	<field name="mt_clientes_cod_tipo_cli" class="java.lang.Integer"/>
+	<field name="mt_clientes_tipo_docum" class="java.lang.Integer"/>
+	<field name="mt_clientes_cod_tit" class="java.lang.String"/>
+	<field name="mt_condicion_pago_cod_cond" class="java.lang.Integer"/>
+	<field name="mt_condicion_pago_descripcion" class="java.lang.String"/>
+	<field name="mt_condicion_pago_plazo" class="java.lang.Integer"/>
+	<field name="timbrado" class="java.lang.String"/>
+	<field name="vencimiento" class="java.sql.Date"/>
+	<variable name="totalIVA" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{factura_venta_total_iva_10}.add($F{factura_venta_total_iva_5})]]></variableExpression>
+	</variable>
+	<variable name="total5" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{factura_venta_total_iva_5}]]></variableExpression>
+	</variable>
+	<variable name="total10" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{factura_venta_total_iva_10}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="490" splitType="Stretch">
+			<rectangle>
+				<reportElement x="20" y="407" width="550" height="75" uuid="383e5a8c-2aeb-4ad2-beb6-0232b89a4d39"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="20" y="432" width="550" height="25" uuid="a40f622e-7620-4030-af32-2147c6e1c59c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="20" y="407" width="550" height="25" uuid="57864dae-2566-453a-acd2-cff0e8e96af7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="19" y="191" width="552" height="33" uuid="85f5eabe-ab8f-406b-a9e5-7303992fdd67"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="61" y="191" width="225" height="208" uuid="95da8033-c1e5-4850-973b-4fdf82b7346f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="19" y="191" width="42" height="208" uuid="bb17f59c-2a10-481f-9c01-76107930206f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="374" y="191" width="196" height="17" uuid="5fd521b3-5ea8-40c1-addd-7ab932ed9b96"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="374" y="191" width="197" height="33" uuid="da70c48a-4735-41d5-b64d-0ffbfcc2c54d"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement mode="Opaque" x="17" y="16" width="313" height="90" uuid="bdc44d87-01c4-41c4-af8d-1860267fddc6"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement mode="Opaque" x="340" y="16" width="232" height="90" uuid="2a761276-0e2e-410f-9448-a9bac16d3123"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement mode="Opaque" x="18" y="112" width="554" height="75" uuid="6d0da88e-5864-46d4-9f8e-34953cd7bbaa"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="398" y="20" width="46" height="15" uuid="0f525c82-531a-447d-9d71-71951b164d96"/>
+				<text><![CDATA[Timbrado: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="36" width="63" height="15" uuid="affdafad-cc0c-4af6-ac99-02ffbfa0d0f4"/>
+				<text><![CDATA[Válido hasta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="50" width="232" height="20" uuid="83f1b5ba-5481-4434-a216-b8db4bb4c15d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC: 1932502 - 9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="70" width="231" height="20" uuid="2fb611b0-64b0-4105-b86f-d85633b54902"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="21" width="313" height="20" uuid="a8299663-6fc2-4b99-929a-49ba56ea9940"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVICIOS GASTRONÓMICOS "DON JOSÉ"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="41" width="313" height="20" uuid="55b89ad7-ec39-4dfb-b4ca-53d142490cb1"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[de Teodora Barrios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="61" width="313" height="15" uuid="9036638a-107b-416e-bbf9-b2d3c21b7644"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Río Pilcomayo 3585 c/ Oscar Otazú]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="75" width="311" height="15" uuid="9c2dacbe-6d51-41f2-a2e3-d54e2402b3ca"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Tel.: (021) 903324   /   (0981) 284748]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="90" width="312" height="15" uuid="82999104-1181-4420-8d1b-51037f94b00e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Lambaré  -   Paraguay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="118" width="87" height="15" uuid="0e857294-4cc6-435a-a935-0794c954fc7c"/>
+				<text><![CDATA[Fecha de Emisión: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="134" width="50" height="15" uuid="af49f82a-78d8-455b-babc-b4da663ff46e"/>
+				<text><![CDATA[RUC o CI :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="166" width="47" height="15" uuid="5c8b6d32-fefc-4768-9e1d-f318a9ab2589"/>
+				<text><![CDATA[Dirección: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="118" width="98" height="15" uuid="122fc755-7005-4c30-8d0d-6f7ab5b765c3"/>
+				<text><![CDATA[Condición de Venta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="166" width="46" height="15" uuid="7488563c-84bd-4d96-8a6a-90263c2fb529"/>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="150" width="112" height="15" uuid="b7727321-220f-4749-8633-b8d26489e23e"/>
+				<text><![CDATA[Nombre o Razón Social:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="134" width="98" height="15" uuid="5f64a646-aa50-408d-83b9-cbcf8a60efdd"/>
+				<text><![CDATA[Nota de Remisión N°:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="193" width="28" height="27" uuid="c383c714-2bfc-4cb8-9168-23045f078ac5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cant.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="194" width="49" height="26" uuid="70b9c75e-9018-46ca-9620-d1a03ed9bfef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Precio Unitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="193" width="148" height="27" uuid="112a9126-7a00-4af4-97de-7c490f799d85"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="192" width="196" height="15" uuid="dce63f01-9fb7-40cc-b7a2-5c03c861477b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Valor de Venta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="504" y="208" width="66" height="15" uuid="67e595e4-9d3e-43a6-98d4-bbad9765ef10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[10%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="208" width="68" height="15" uuid="07adcba9-d105-4458-aaa0-cda7e6365f37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[5%]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="435" y="208" width="69" height="191" uuid="48c2f925-8051-46c3-9bf5-1d9066d030c1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="504" y="208" width="67" height="191" uuid="58bcbb1b-6c84-41b4-9f43-f6a9ac42655a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="374" y="208" width="61" height="191" uuid="f51034c8-c43f-4d34-af59-85e80a6845a0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="374" y="208" width="61" height="16" uuid="628e6f76-e9a2-4ebb-94f9-bf19448b491c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Exentas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="19" y="223" width="552" height="1" uuid="e22fea0f-e818-4425-ac18-821010e40cb8"/>
+			</line>
+			<line>
+				<reportElement x="20" y="399" width="551" height="1" uuid="49ac5a7a-c00e-492e-aafc-7f339b72e648"/>
+			</line>
+			<subreport>
+				<reportElement x="19" y="224" width="551" height="175" uuid="afbc6287-e5b2-48b1-ae62-676077eb6fac"/>
+				<subreportParameter name="nroTransDet">
+					<subreportParameterExpression><![CDATA[$P{nroTrans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "FacturaVenta_detalle.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="23" y="407" width="56" height="25" uuid="5aa75398-b9a2-4aff-9cd3-c8fd9f46e63e"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Subtotales:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="432" width="67" height="25" uuid="53f04b08-7bc6-4758-b736-e7795ebc1d7a"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total a Pagar:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="457" width="86" height="25" uuid="e8dcf2d9-5973-4628-80fc-e0161c809156"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Liquidación del IVA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="373" y="407" width="63" height="25" uuid="b52589c6-9bc6-47c8-9fa0-36ed196d4761"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="435" y="407" width="69" height="25" uuid="988581d1-533e-445a-8f34-58d3719d8004"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="504" y="432" width="66" height="25" uuid="8492b0b6-e9b3-4371-a925-18a5abf27320"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="149" y="457" width="24" height="25" uuid="00e9b4d6-8df4-4317-941f-2b5927aea65f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[5%:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="457" width="24" height="25" uuid="8c35715a-f61c-456d-aed8-4abdf0215a29"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[10%:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="457" width="52" height="25" uuid="002ec6bc-03b6-4a0f-9e34-5cc57a277829"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total IVA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="134" width="276" height="15" uuid="1c660c58-543b-4921-ba4e-226ec3ffdc3a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_cod_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="150" width="213" height="15" uuid="81a2a99f-6b83-42e7-8971-795ac53a263e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mt_clientes_nom_tit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="166" width="279" height="15" uuid="987a7ad1-11f9-4183-b840-2bf95ff5b900"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mt_clientes_dir_titular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="118" width="86" height="15" uuid="d98054fb-b491-4ce7-abc7-ccacbf931d51"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mt_condicion_pago_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="166" width="139" height="15" uuid="ad1b819f-a377-4380-b304-555329fe41d0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mt_clientes_tel_titular} + " / " + $F{mt_clientes_cel_titular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="118" width="238" height="15" uuid="864de15a-f856-4182-880f-2cecf0352e72"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_fecha}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="79" y="412" width="279" height="15" uuid="d67194a5-e538-4a44-b6fc-6a78261721d1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_observacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="358" y="89" width="200" height="20" uuid="f7901905-b5af-4c53-b8ed-390858ad68da"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_cod_tribut_fac} + "-" +
+$F{factura_venta_cod_suc_fac} + "-" +
+$F{factura_venta_nro_docum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="20" width="83" height="15" uuid="6f76c852-7374-409a-9197-b4fe21aee42a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{timbrado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="460" y="36" width="79" height="15" uuid="31c55423-1c8b-42d6-8b51-8b5484d8047d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimiento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="312" y="457" width="100" height="25" uuid="fa4e924e-ec6f-4ee4-af78-b9cfc95eec9e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_total_iva_10}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="176" y="457" width="100" height="25" uuid="bd9e1a9d-527e-437a-9728-c72ea18924aa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_total_iva_5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="370" y="407" width="61" height="27" uuid="7a69662b-4890-40ff-b411-5047d3a44427"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_total_exenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="504" y="407" width="62" height="25" uuid="8eea827c-8241-4256-bf5c-f4792743e959"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_total_gravada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="439" y="407" width="62" height="26" uuid="249ea958-724f-4d16-a540-562b34851794"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="487" y="457" width="79" height="25" uuid="25876c0c-02cb-4c64-b729-73f1c4a26c03"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_total_iva_10}.add($F{factura_venta_total_iva_5})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="504" y="434" width="62" height="20" uuid="38075eb7-a506-4d11-96fe-f6607a2c1d75"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_total_gravada}.add($F{factura_venta_total_exenta})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="433" width="411" height="24" uuid="8622aa80-2e60-4f0b-84d1-fbf3deaa7881"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{letras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="6" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.FacturaVenta" table="factura_venta" schema="public">
+        <id name="nroTrans" type="int">
+            <column name="nro_trans" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="caja" class="com.entidades.Caja" fetch="select">
+            <column name="cod_caja" length="5" />
+        </many-to-one>
+        <many-to-one name="mtTipoComprobantes" class="com.entidades.MtTipoComprobantes" fetch="select">
+            <column name="tipo_comprobante" length="5" />
+        </many-to-one>
+        <many-to-one name="mtSucursales" class="com.entidades.MtSucursales" fetch="select">
+            <column name="cod_suc" length="5" />
+        </many-to-one>
+        <many-to-one name="mtMonedas" class="com.entidades.MtMonedas" fetch="select">
+            <column name="cod_moneda" />
+        </many-to-one>
+        <many-to-one name="mtFormaPago" class="com.entidades.MtFormaPago" fetch="select">
+            <column name="forma_pago" />
+        </many-to-one>
+        <many-to-one name="mtClientes" class="com.entidades.MtClientes" fetch="select">
+            <column name="cod_cliente" length="20" />
+        </many-to-one>
+        <many-to-one name="mtCondicionPago" class="com.entidades.MtCondicionPago" fetch="select">
+            <column name="cond_pago" />
+        </many-to-one>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="29" />
+        </property>
+        <property name="totalGravada" type="big_decimal">
+            <column name="total_gravada" precision="14" />
+        </property>
+        <property name="totalExenta" type="big_decimal">
+            <column name="total_exenta" precision="14" />
+        </property>
+        <property name="totalIva10" type="big_decimal">
+            <column name="total_iva_10" precision="14" />
+        </property>
+        <property name="totalIva5" type="big_decimal">
+            <column name="total_iva_5" precision="14" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="estado" length="1">
+                <comment>'C' - cancelado 'P' - pendiente</comment>
+            </column>
+        </property>
+        <property name="nroComanda" type="java.lang.Integer">
+            <column name="nro_comanda" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <property name="codSucFac" type="string">
+            <column name="cod_suc_fac" length="3" />
+        </property>
+        <property name="codTributFac" type="string">
+            <column name="cod_tribut_fac" length="3" />
+        </property>
+        <property name="nroDocum" type="java.lang.Integer">
+            <column name="nro_docum" />
+        </property>
+        <property name="vencimiento" type="date">
+            <column name="vencimiento" length="13" />
+        </property>
+        <property name="tipoCambio" type="big_decimal">
+            <column name="tipo_cambio" precision="13" />
+        </property>
+        <property name="notaCredito" type="string">
+            <column name="nota_credito" length="17" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="observacion" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

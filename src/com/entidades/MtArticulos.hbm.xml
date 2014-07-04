@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtArticulos" table="mt_articulos" schema="public">
+        <id name="codArticulo" type="string">
+            <column name="cod_articulo" length="20" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="mtUnidMedidasByUniMedidaVenta" class="com.entidades.MtUnidMedidas" fetch="select">
+            <column name="uni_medida_venta" length="5" />
+        </many-to-one>
+        <many-to-one name="mtTiposArticulos" class="com.entidades.MtTiposArticulos" fetch="select">
+            <column name="cod_tipo_articulo" />
+        </many-to-one>
+        <many-to-one name="mtUnidMedidasByUniMedidaCom" class="com.entidades.MtUnidMedidas" fetch="select">
+            <column name="uni_medida_com" length="5" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtMarcas" class="com.entidades.MtMarcas" fetch="select">
+            <column name="cod_marca" length="15" />
+        </many-to-one>
+        <many-to-one name="mtMonedasByCodMonedaVenta" class="com.entidades.MtMonedas" fetch="select">
+            <column name="cod_moneda_venta" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtMonedasByCodMonedaCompra" class="com.entidades.MtMonedas" fetch="select">
+            <column name="cod_moneda_compra" not-null="true" />
+        </many-to-one>
+        <property name="nomArticulo" type="string">
+            <column name="nom_articulo" length="200" not-null="true" />
+        </property>
+        <property name="referencia" type="string">
+            <column name="referencia" length="200" />
+        </property>
+        <property name="precioCompra" type="big_decimal">
+            <column name="precio_compra" precision="14" not-null="true" />
+        </property>
+        <property name="precioVenta" type="big_decimal">
+            <column name="precio_venta" precision="14" />
+        </property>
+        <property name="controlStock" type="char">
+            <column name="control_stock" length="1" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <property name="impuesto" type="java.lang.Integer">
+            <column name="impuesto">
+                <comment>porcentaje del impuesto aplicado al articulo</comment>
+            </column>
+        </property>
+        <property name="esMateriaPrima" type="java.lang.Character">
+            <column name="es_materia_prima" length="1" />
+        </property>
+        <property name="fraccionable" type="java.lang.Boolean">
+            <column name="fraccionable" />
+        </property>
+        <property name="cantDiasVenc" type="java.lang.Integer">
+            <column name="cant_dias_venc" />
+        </property>
+        <set name="facturaVentaDetalles" table="factura_venta_detalle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_articulo" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.FacturaVentaDetalle" />
+        </set>
+        <set name="prProducs" table="pr_produc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_art" length="20" />
+            </key>
+            <one-to-many class="com.entidades.PrProduc" />
+        </set>
+        <set name="presupuestoDets" table="presupuesto_det" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_articulo" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.PresupuestoDet" />
+        </set>
+        <set name="stExistenciaSucs" table="st_existencia_suc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_articulo" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.StExistenciaSuc" />
+        </set>
+        <set name="facturaCompraDetalles" table="factura_compra_detalle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_articulo" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.FacturaCompraDetalle" />
+        </set>
+        <set name="prProduccions" table="pr_produccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_articulo" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.PrProduccion" />
+        </set>
+        <set name="prProduccions_1" table="pr_produccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_articulo" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.PrProduccion" />
+        </set>
+        <set name="ordCompraDets" table="ord_compra_det" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_articulo" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.OrdCompraDet" />
+        </set>
+        <set name="stExistenciaSucs_1" table="st_existencia_suc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_articulo" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.StExistenciaSuc" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="62416bef-a5d4-448f-9c62-fb180279fe77">
+	<property name="ireport.zoom" value="1.6500000000000041"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="42"/>
+	<queryString>
+		<![CDATA[SELECT
+     mt_ciudades."nom_ciudad" AS mt_ciudades_nom_ciudad,
+     mt_clientes."nro_docum" AS mt_clientes_nro_docum,
+     mt_clientes."nom_tit" AS mt_clientes_nom_tit,
+     mt_clientes."tipo_docum" AS mt_clientes_tipo_docum,
+     mt_tipos_clientes."cod_tipo_cliente" AS mt_tipos_clientes_cod_tipo_cliente,
+     mt_tipos_clientes."nom_tipo_cliente" AS mt_tipos_clientes_nom_tipo_cliente,
+     mt_ciudades."cod_ciudad" AS mt_ciudades_cod_ciudad,
+     mt_clientes."cod_ciudad" AS mt_clientes_cod_ciudad,
+     mt_clientes."es_activo" AS mt_clientes_es_activo,
+     mt_clientes."cod_tipo_cli" AS mt_clientes_cod_tipo_cli,
+     mt_clientes."cod_tit" AS mt_clientes_cod_tit
+FROM
+     "public"."mt_ciudades" mt_ciudades INNER JOIN "public"."mt_clientes" mt_clientes ON mt_ciudades."cod_ciudad" = mt_clientes."cod_ciudad"
+     INNER JOIN "public"."mt_tipos_clientes" mt_tipos_clientes ON mt_clientes."cod_tipo_cli" = mt_tipos_clientes."cod_tipo_cliente"]]>
+	</queryString>
+	<field name="mt_ciudades_nom_ciudad" class="java.lang.String"/>
+	<field name="mt_clientes_nro_docum" class="java.lang.String"/>
+	<field name="mt_clientes_nom_tit" class="java.lang.String"/>
+	<field name="mt_clientes_tipo_docum" class="java.lang.String"/>
+	<field name="mt_tipos_clientes_cod_tipo_cliente" class="java.lang.Integer"/>
+	<field name="mt_tipos_clientes_nom_tipo_cliente" class="java.lang.String"/>
+	<field name="mt_ciudades_cod_ciudad" class="java.lang.Integer"/>
+	<field name="mt_clientes_cod_ciudad" class="java.lang.Integer"/>
+	<field name="mt_clientes_es_activo" class="java.lang.String"/>
+	<field name="mt_clientes_cod_tipo_cli" class="java.lang.Integer"/>
+	<field name="mt_clientes_cod_tit" class="java.lang.Integer"/>
+	<group name="TipoClie">
+		<groupExpression><![CDATA[$F{mt_tipos_clientes_nom_tipo_cliente}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement x="19" y="3" width="100" height="20" uuid="4e0fd7ff-110c-443d-b062-6cf56152c077"/>
+					<textFieldExpression><![CDATA[$F{mt_tipos_clientes_nom_tipo_cliente}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="30" width="554" height="27" uuid="11192b87-2d96-400b-8d9e-0385dc0f322c"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Clientes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="4" width="306" height="20" uuid="3950707a-1a14-48ce-aaa7-5c01ccb02c10"/>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="452" y="13" width="100" height="20" uuid="6c8e11ae-53b1-4b7d-bb4e-6d4ad5237f9e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="450" y="0" width="100" height="20" uuid="4c456c27-c01a-4075-b557-6b9828a54dd9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch">
+			<line>
+				<reportElement x="19" y="23" width="531" height="1" uuid="124bbb4a-aee9-42ff-bd5f-fd1fd6fc5d3d"/>
+			</line>
+			<staticText>
+				<reportElement x="63" y="6" width="56" height="20" uuid="53da1f8b-9eac-4c5a-9e67-191ae671b90a"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cód. Tit.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="151" y="6" width="171" height="20" uuid="ed060dcc-8884-44bc-9ba7-27cae7fa8e38"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="6" width="86" height="20" uuid="bc9ca783-d4a1-4637-8e5f-76186d01a60b"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ciudad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="6" width="55" height="20" uuid="08a4e27f-5df2-41c0-badf-9a7447fc349f"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Es Activo]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="3" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="63" y="0" width="77" height="20" uuid="797b8e6e-2a8e-4b7f-94c8-12f9fb9090a1"/>
+				<textFieldExpression><![CDATA[$F{mt_clientes_nro_docum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="0" width="171" height="20" uuid="9a682324-92d4-4876-b55c-8a60a3dbedde"/>
+				<textFieldExpression><![CDATA[$F{mt_clientes_nom_tit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="152" height="20" uuid="767e1f46-d149-499c-a2ea-b8b87c7486e6"/>
+				<textFieldExpression><![CDATA[$F{mt_ciudades_nom_ciudad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="496" y="0" width="41" height="20" uuid="f620077e-a390-428f-92ae-f03cc2e9a23f"/>
+				<textFieldExpression><![CDATA[$F{mt_clientes_es_activo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="5" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="4" width="40" height="20" uuid="6fa7b13a-02d6-495a-9db9-c8e646859cd5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="4" width="80" height="20" uuid="fde90901-3ed5-4dd8-ad2e-3332a168e73a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="9042719a-9ea6-4b12-8abc-2f9c80ed0ec2"/>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="391" y="5" width="159" height="20" uuid="7bc0324a-61d2-4a4c-96ef-4570a990b85f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de Registros: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

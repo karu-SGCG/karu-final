@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e9b4fe58-6ff9-441a-8b79-983b039a694f">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="15"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     mt_comprobantes."cod_tribut" AS mt_comprobantes_cod_tribut,
+     mt_comprobantes."cod_suc_fac" AS mt_comprobantes_cod_suc_fac,
+     mt_comprobantes."nro_factura" AS mt_comprobantes_nro_factura,
+     mt_comprobantes."cod_sucursal" AS mt_comprobantes_cod_sucursal,
+     mt_comprobantes."timbrado" AS mt_comprobantes_timbrado,
+     mt_comprobantes."vencimiento" AS mt_comprobantes_vencimiento,
+     mt_comprobantes."tipo_docum" AS mt_comprobantes_tipo_docum,
+     mt_comprobantes."nro_trans" AS mt_comprobantes_nro_trans,
+     mt_comprobantes."es_activo" AS mt_comprobantes_es_activo,
+     mt_comprobantes."cod_caja" AS mt_comprobantes_cod_caja,
+     mt_comprobantes."inicio_lote" AS mt_comprobantes_inicio_lote,
+     mt_comprobantes."fin_lote" AS mt_comprobantes_fin_lote
+FROM
+     "public"."mt_comprobantes" mt_comprobantes]]>
+	</queryString>
+	<field name="mt_comprobantes_cod_tribut" class="java.lang.String"/>
+	<field name="mt_comprobantes_cod_suc_fac" class="java.lang.String"/>
+	<field name="mt_comprobantes_nro_factura" class="java.lang.Integer"/>
+	<field name="mt_comprobantes_cod_sucursal" class="java.lang.String"/>
+	<field name="mt_comprobantes_timbrado" class="java.lang.String"/>
+	<field name="mt_comprobantes_vencimiento" class="java.sql.Date"/>
+	<field name="mt_comprobantes_tipo_docum" class="java.lang.String"/>
+	<field name="mt_comprobantes_nro_trans" class="java.lang.Integer"/>
+	<field name="mt_comprobantes_es_activo" class="java.lang.Boolean"/>
+	<field name="mt_comprobantes_cod_caja" class="java.lang.String"/>
+	<field name="mt_comprobantes_inicio_lote" class="java.lang.Integer"/>
+	<field name="mt_comprobantes_fin_lote" class="java.lang.Integer"/>
+	<group name="mt_comprobantes_tipo_docum">
+		<groupExpression><![CDATA[$F{mt_comprobantes_tipo_docum}]]></groupExpression>
+	</group>
+	<group name="tipoDoc_Grupo">
+		<groupExpression><![CDATA[$F{mt_comprobantes_tipo_docum}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField>
+					<reportElement x="8" y="2" width="100" height="20" uuid="e237041f-d69d-49d5-b4ee-1deeca31b991"/>
+					<textFieldExpression><![CDATA[$F{mt_comprobantes_tipo_docum}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<textField>
+					<reportElement x="319" y="5" width="177" height="20" uuid="3f2e24e3-0db1-44f1-baec-b25d2ff3b709"/>
+					<textFieldExpression><![CDATA["Total x Tipo Documento:  " + $V{tipoDoc_Grupo_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="6" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="78" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="0" width="100" height="20" uuid="21795de3-52b3-4959-872d-0f433759c837"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="0" width="306" height="20" uuid="da0bf11b-2703-42a4-be80-2c735e8b1b8a"/>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="455" y="14" width="100" height="20" uuid="c34d68e7-dd0c-4850-b4f0-eca99661a4ff"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="40" width="551" height="27" uuid="b964b789-ff41-45bc-a2ad-ae184619ad21"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Comprobantes]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="34" y="11" width="54" height="20" uuid="b7c9e33b-9a5b-4b11-9fa5-1afbf2e21cf4"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="11" width="48" height="20" uuid="d0ed79dd-051b-4df6-8fb7-7ce850909331"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="1" width="37" height="20" uuid="e5a6b83b-d151-4aac-9170-aa86c07da842"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="13" width="37" height="18" uuid="46d9ff38-99fd-4cc8-a2c7-421fa91daad2"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lote]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="13" width="37" height="18" uuid="ee8b8250-496b-405b-9b01-6b3016469330"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lote]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="1" width="37" height="20" uuid="a77974e8-65d6-4ff5-8e23-f25403be8167"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="11" width="58" height="20" uuid="ef6a2805-8308-467a-9cce-47f452ec62f8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Timbrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="11" width="41" height="20" uuid="1b4eb9a0-0e4b-4a79-bdc0-3c37b2801f8e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Venc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="11" width="51" height="20" uuid="d57a959b-5d3c-45f4-9212-7e0ec5adb738"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Suc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="11" width="53" height="20" uuid="4e0c5fda-a179-4048-82c8-4585f4680f09"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Caja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="466" y="11" width="41" height="20" uuid="d0288c7c-1b21-421f-9ee5-41e9b242d49a"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Activo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="31" width="521" height="1" uuid="39837b75-bb4c-4095-ad83-8fac4588481b"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="34" y="1" width="54" height="20" uuid="1d765bc1-c283-4363-b9eb-037828ab3b35"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_cod_tribut} + " - " + $F{mt_comprobantes_cod_suc_fac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="1" width="48" height="20" uuid="027be0c8-3019-44fb-911c-ebf7ba6de43f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_nro_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="147" y="1" width="37" height="20" uuid="389a698f-ca7e-4b67-99b7-b2fe7d17a626"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_inicio_lote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="1" width="43" height="20" uuid="27b8b8c9-6347-409b-92f3-c8efa2065ece"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_fin_lote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="1" width="58" height="20" uuid="de270e98-a6c5-439a-beec-66c61b442c0c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_timbrado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="1" width="39" height="20" uuid="280bf1c8-bdc1-4401-907e-2b697b294f2d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_vencimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="1" width="51" height="20" uuid="91af3b35-4b65-4184-b362-646468ac1bfa"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_cod_sucursal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="1" width="53" height="20" uuid="313bda85-20d7-49e4-ac89-a835421cd22a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_cod_caja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="1" width="47" height="20" uuid="bb563964-3ddd-4fc5-8a4a-33767740b658"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mt_comprobantes_es_activo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="4" y="0" width="100" height="20" uuid="93b73326-3e39-4952-8014-f65fab228f14"/>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="509" y="1" width="40" height="20" uuid="83fe1219-d527-4a9f-b004-dd0375ae873a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="1" width="80" height="20" uuid="1c253173-9bd7-46e8-a874-1b7123fd829f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="349" y="0" width="159" height="20" uuid="947167a7-96a4-42e7-9e2b-e49e362d2c92"/>
+				<textFieldExpression><![CDATA["Total de Registros: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

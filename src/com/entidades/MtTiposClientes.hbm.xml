@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtTiposClientes" table="mt_tipos_clientes" schema="public">
+        <id name="codTipoCliente" type="int">
+            <column name="cod_tipo_cliente" />
+            <generator class="assigned" />
+        </id>
+        <property name="nomTipoCliente" type="string">
+            <column name="nom_tipo_cliente" length="100" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <property name="usuario" type="string">
+            <column name="usuario" length="15" />
+        </property>
+        <property name="operacion" type="string">
+            <column name="operacion" length="15" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="29" />
+        </property>
+        <set name="mtClienteses" table="mt_clientes" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_tipo_cli" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtClientes" />
+        </set>
+        <set name="mtPromocionesDets" table="mt_promociones_det" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_tipo_cliente" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtPromocionesDet" />
+        </set>
+    </class>
+</hibernate-mapping>

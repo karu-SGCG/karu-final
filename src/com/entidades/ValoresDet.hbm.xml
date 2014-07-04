@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.ValoresDet" table="valores_det" schema="public">
+        <composite-id name="id" class="com.entidades.ValoresDetId">
+            <key-property name="nroTrans" type="int">
+                <column name="nro_trans" />
+            </key-property>
+            <key-property name="linea" type="int">
+                <column name="linea" />
+            </key-property>
+            <key-property name="codDocum" type="string">
+                <column name="cod_docum" length="3" />
+            </key-property>
+        </composite-id>
+        <property name="codFormaPago" type="java.lang.Integer">
+            <column name="cod_forma_pago" />
+        </property>
+        <property name="codEmisor" type="java.lang.Integer">
+            <column name="cod_emisor" />
+        </property>
+        <property name="codMoneda" type="java.lang.Integer">
+            <column name="cod_moneda" />
+        </property>
+        <property name="tipoCambio" type="java.lang.Integer">
+            <column name="tipo_cambio" />
+        </property>
+        <property name="refOperacion" type="string">
+            <column name="ref_operacion" length="15" />
+        </property>
+        <property name="importe" type="big_decimal">
+            <column name="importe" precision="14" />
+        </property>
+        <property name="cuotas" type="java.lang.Integer">
+            <column name="cuotas" />
+        </property>
+        <property name="refDocum" type="java.lang.Integer">
+            <column name="ref_docum" />
+        </property>
+    </class>
+</hibernate-mapping>

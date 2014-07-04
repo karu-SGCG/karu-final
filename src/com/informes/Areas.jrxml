@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="62416bef-a5d4-448f-9c62-fb180279fe77">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1"/>
+	<field name="codArea" class="java.lang.String"/>
+	<field name="nomCargo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="30" width="554" height="27" uuid="11192b87-2d96-400b-8d9e-0385dc0f322c"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Áreas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="4" width="306" height="20" uuid="3950707a-1a14-48ce-aaa7-5c01ccb02c10"/>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="452" y="13" width="100" height="20" uuid="6c8e11ae-53b1-4b7d-bb4e-6d4ad5237f9e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="450" y="0" width="100" height="20" uuid="4c456c27-c01a-4075-b557-6b9828a54dd9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<line>
+				<reportElement x="19" y="34" width="498" height="1" uuid="124bbb4a-aee9-42ff-bd5f-fd1fd6fc5d3d"/>
+			</line>
+			<staticText>
+				<reportElement x="129" y="15" width="100" height="20" uuid="e79684d9-ebb9-4f6f-8090-02e083cb419a"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="15" width="57" height="20" uuid="130adb74-1f4a-4f9c-81f1-c3a305dfaa09"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="4" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="173" height="20" uuid="a93f36c3-4d07-4a80-b6ce-5d477b9e249f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nomCargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="34" y="0" width="52" height="20" uuid="abb55dd0-e7f9-45f1-85a3-3f96763d5c4c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codArea}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="5" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="4" width="40" height="20" uuid="6fa7b13a-02d6-495a-9db9-c8e646859cd5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="4" width="80" height="20" uuid="fde90901-3ed5-4dd8-ad2e-3332a168e73a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="9042719a-9ea6-4b12-8abc-2f9c80ed0ec2"/>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="334" y="6" width="159" height="20" uuid="7bc0324a-61d2-4a4c-96ef-4570a990b85f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de Registros: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

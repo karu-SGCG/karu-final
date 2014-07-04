@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN"
+"http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="informe_ciudades" pageWidth="595"
+              pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20">
+              
+    <!-- 
+    cod_tit integer NOT NULL, 
+    nro_docum character varying(20) NOT NULL,
+    nom_tit character varying(200) NOT NULL,
+    dir_titular character varying(200) NOT NULL,
+    tel_titular character varying(30),
+    cel_titular character varying(30),
+    email character varying(50),
+    cod_ciudad integer NOT NULL,
+    es_activo character(1) NOT NULL DEFAULT 'S'::bpchar,
+    -->
+    <field name="cod_tit" class="java.lang.Integer"></field>
+    <field name="nro_docum" class="java.lang.String"></field>
+    <field name="nom_tit" class="java.lang.String"></field>
+    <field name="dir_titular" class="java.lang.String"></field>
+    <field name="tel_titular" class="java.lang.String"></field>
+    
+    
+    <columnHeader>
+        <band height="23">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="535"
+                               height="15" backcolor="#70A9A9" />
+                <box>
+                    <bottomPen lineWidth="1.0" lineColor="#CCCCCC" />
+                </box>
+                <textElement />
+                <text><![CDATA[]]> </text>
+            </staticText>
+            <staticText>
+                <reportElement x="10" y="0" width="121" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle">
+                    <font isBold="true" />
+                </textElement>
+                <text><![CDATA[Codigo]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="80" y="0" width="136" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle">
+                    <font isBold="true" />
+                </textElement>
+                <text><![CDATA[Nro. Doc]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="3" width="136" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle">
+                    <font isBold="true" />
+                </textElement>
+                <text><![CDATA[Nombre]]></text>
+            </staticText>
+             <staticText>
+                <reportElement x="220" y="0" width="136" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle">
+                    <font isBold="true" />
+                </textElement>
+                <text><![CDATA[Direccion]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="3" width="136" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle">
+                    <font isBold="true" />
+                </textElement>
+                <text><![CDATA[Telefono]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="16">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="535"
+                               height="14" backcolor="#E5ECF9" />
+                <box>
+                    <bottomPen lineWidth="0.25" lineColor="#CCCCCC" />
+                </box>
+                <textElement />
+                <text><![CDATA[]]> </text>
+            </staticText>
+            <textField>
+                <reportElement x="10" y="0" width="121" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle">
+                    <font size="9" />
+                </textElement>
+                <textFieldExpression class="java.lang.Integer">
+                        <![CDATA[$F{cod_tit}]]>
+                </textFieldExpression>
+            </textField>
+            
+            <textField>
+                <reportElement x="80" y="0" width="136" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle" />
+                <textFieldExpression class="java.lang.String">
+			<![CDATA[$F{nro_docum}]]>
+                </textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="136" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle" />
+                <textFieldExpression class="java.lang.String">
+			<![CDATA[$F{nom_tit}]]>
+                </textFieldExpression>
+            </textField>
+            
+            <textField>
+                <reportElement x="220" y="0" width="136" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle" />
+                <textFieldExpression class="java.lang.String">
+			<![CDATA[$F{nom_tit}]]>
+                </textFieldExpression>
+            </textField>
+            
+            <textField>
+                <reportElement x="300" y="0" width="136" height="15" />
+                <textElement textAlignment="Center"
+                             verticalAlignment="Middle" />
+                <textFieldExpression class="java.lang.String">
+			<![CDATA[$F{nom_tit}]]>
+                </textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

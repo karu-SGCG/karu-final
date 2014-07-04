@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MovValores" table="mov_valores" schema="public">
+        <id name="nroOperacion" type="int">
+            <column name="nro_operacion" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="caja" class="com.entidades.Caja" fetch="select">
+            <column name="cod_caja" length="5" />
+        </many-to-one>
+        <many-to-one name="mtMonedas" class="com.entidades.MtMonedas" fetch="select">
+            <column name="cod_moneda" />
+        </many-to-one>
+        <many-to-one name="mtBancos" class="com.entidades.MtBancos" fetch="select">
+            <column name="cod_banco" length="5" />
+        </many-to-one>
+       <!-- <many-to-one name="tsBancosCtas" class="com.entidades.TsBancosCtas" update="false" insert="false" fetch="select">
+            <column name="cod_banco" length="5" />
+            <column name="nro_cta_cte" length="15" />
+        </many-to-one> -->
+        <property name="fechaOper" type="date">
+            <column name="fecha_oper" length="13" />
+        </property>
+        <property name="refDeposito" type="java.lang.Integer">
+            <column name="ref_deposito" />
+        </property>
+        <property name="totalDepositado" type="big_decimal">
+            <column name="total_depositado" precision="14" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        
+        <property name="nroCtaCte" type="string">
+            <column name="nro_cta_cte" length="15" />
+        </property>
+    </class>
+</hibernate-mapping>

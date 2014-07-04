@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtPromocionesCab" table="mt_promociones_cab" schema="public">
+        <id name="idPromo" type="int">
+            <column name="id_promo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="mtFormaPago" class="com.entidades.MtFormaPago" fetch="select">
+            <column name="cod_forma_pago" />
+        </many-to-one>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="150" not-null="true" />
+        </property>
+        <property name="esPorFecha" type="char">
+            <column name="es_por_fecha" length="1" not-null="true" />
+        </property>
+        <property name="fechaInicio" type="date">
+            <column name="fecha_inicio" length="13" />
+        </property>
+        <property name="fechaFin" type="date">
+            <column name="fecha_fin" length="13" />
+        </property>
+        <property name="estaActivo" type="char">
+            <column name="esta_activo" length="1" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="mtPromocionesDets" table="mt_promociones_det" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_promo" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtPromocionesDet" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f1131ff-5f81-41b3-bac7-82173e9bc3da">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pnro_ocompra" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[4]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.nro_ocompra, a.fecha, a.cod_proveedor, c.nro_docum, c.nom_tit, c.dir_titular, c.tel_titular,
+b.cod_articulo, d.nom_articulo, e.nom_marca, b.cantidad,
+a.total
+from orden_compra a inner join ord_compra_det b on a.nro_ocompra = b.nro_ocompra
+inner join mt_proveedores c on a.cod_proveedor = c.nro_docum
+inner join mt_articulos d on b.cod_articulo = d.cod_articulo
+inner join mt_marcas e on d.cod_marca = e.cod_marca
+where a.nro_ocompra = $P{pnro_ocompra}]]>
+	</queryString>
+	<field name="nro_ocompra" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="cod_proveedor" class="java.lang.String"/>
+	<field name="nro_docum" class="java.lang.String"/>
+	<field name="nom_tit" class="java.lang.String"/>
+	<field name="dir_titular" class="java.lang.String"/>
+	<field name="tel_titular" class="java.lang.String"/>
+	<field name="cod_articulo" class="java.lang.String"/>
+	<field name="nom_articulo" class="java.lang.String"/>
+	<field name="nom_marca" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<variable name="cod_articulo_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{cod_articulo}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="132" splitType="Stretch">
+			<staticText>
+				<reportElement x="163" y="22" width="202" height="20" uuid="4905c317-4dfd-4ffa-841e-fe8df4fadd8e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden de Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="2" width="100" height="20" uuid="f9060416-67a6-4ded-ac67-b7fc2f1dcf63"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Karu - SGCG]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="384" y="22" width="116" height="20" uuid="5635871d-dd5c-4f77-88f0-55a7ccf07d21"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Número: " + "00000" + $F{nro_ocompra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="64" width="472" height="20" uuid="c4ff14a4-0c2b-4358-8e2f-11a543c4d0c5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Señor(es):  " + $F{nro_docum} + "  -  " + $F{nom_tit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="422" y="42" width="78" height="20" uuid="c744e359-bc68-4961-9f64-02c818665524"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="87" width="318" height="20" uuid="696cc169-3f92-42b7-98a0-e2325df849c5"/>
+				<textFieldExpression><![CDATA["Dirección: " + $F{dir_titular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="87" width="149" height="20" uuid="57a2d933-1404-41bf-bb01-9dbea915b0af"/>
+				<textFieldExpression><![CDATA["Teléfono: " + $F{tel_titular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="112" width="472" height="20" uuid="c217da9b-9670-419c-9f14-7775a6730d94"/>
+				<text><![CDATA[Sírvase proveernos de los siguientes artículos.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="32" y="4" width="87" height="20" uuid="78c426b8-d981-4d3a-9e80-38899e95c1ab"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Artículo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="4" width="221" height="20" uuid="942d7ba6-4edf-4e4e-a365-a8aa327f199d"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="4" width="100" height="20" uuid="0bbc28d0-099f-45f1-88bf-de4a5180dd43"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="4" width="65" height="20" uuid="448c1eb5-ad60-4ca6-a5a8-18cafd12d3f6"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<line>
+				<reportElement x="28" y="3" width="494" height="1" uuid="18fdd595-278d-4d4c-8d0b-d053aba710af"/>
+			</line>
+			<line>
+				<reportElement x="28" y="25" width="494" height="1" uuid="4ec0e3ce-c356-43e7-8a08-c28e919fdceb"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="32" y="0" width="87" height="14" uuid="ed93521a-ebe8-4640-b15f-625b50601c1f"/>
+				<textFieldExpression><![CDATA[$F{cod_articulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="0" width="221" height="14" uuid="a2e7f47e-56bd-4ef4-ba32-9f9beaaefe6d"/>
+				<textFieldExpression><![CDATA[$F{nom_articulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="0" width="100" height="14" uuid="393aaf6e-87ab-4a17-ad0d-f311ee784f3a"/>
+				<textFieldExpression><![CDATA[$F{nom_marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="0" width="65" height="14" uuid="e205d89a-15a8-49c2-9202-abcf0bb6710c"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="125" y="10" width="321" height="20" uuid="c62e2f45-bf49-4db0-aaea-040f52085d10"/>
+				<textFieldExpression><![CDATA["Cantidad de ítems: " + $V{cod_articulo_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FacturaVenta_detalle" pageWidth="538" pageHeight="340" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="538" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d5bdd2a2-8b97-43e1-b24d-77b82889a99c">
+	<property name="ireport.zoom" value="1.4641000000000035"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nroTransDet" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     factura_venta_detalle."nro_trans" AS factura_venta_detalle_nro_trans,
+     factura_venta_detalle."linea" AS factura_venta_detalle_linea,
+     factura_venta_detalle."cod_articulo" AS factura_venta_detalle_cod_articulo,
+     factura_venta_detalle."cantidad" AS factura_venta_detalle_cantidad,
+     factura_venta_detalle."precio_unitaio" AS factura_venta_detalle_precio_unitaio,
+     factura_venta_detalle."subtotal" AS factura_venta_detalle_subtotal,
+     factura_venta_detalle."porc_iva" AS factura_venta_detalle_porc_iva,
+     factura_venta_detalle."importe_iva" AS factura_venta_detalle_importe_iva,
+     factura_venta_detalle."porc_dto" AS factura_venta_detalle_porc_dto,
+     factura_venta_detalle."total" AS factura_venta_detalle_total,
+     factura_venta_detalle."imp_descuento" AS factura_venta_detalle_imp_descuento,
+     mt_articulos."cod_articulo" AS mt_articulos_cod_articulo,
+     mt_articulos."nom_articulo" AS mt_articulos_nom_articulo,
+     mt_articulos."precio_venta" AS mt_articulos_precio_venta,
+     mt_articulos."impuesto" AS mt_articulos_impuesto
+FROM
+     "public"."mt_articulos" mt_articulos INNER JOIN "public"."factura_venta_detalle" factura_venta_detalle ON mt_articulos."cod_articulo" = factura_venta_detalle."cod_articulo"
+WHERE  factura_venta_detalle."nro_trans" = $P{nroTransDet}]]>
+	</queryString>
+	<field name="factura_venta_detalle_nro_trans" class="java.lang.Integer"/>
+	<field name="factura_venta_detalle_linea" class="java.lang.Integer"/>
+	<field name="factura_venta_detalle_cod_articulo" class="java.lang.String"/>
+	<field name="factura_venta_detalle_cantidad" class="java.math.BigDecimal"/>
+	<field name="factura_venta_detalle_precio_unitaio" class="java.math.BigDecimal"/>
+	<field name="factura_venta_detalle_subtotal" class="java.math.BigDecimal"/>
+	<field name="factura_venta_detalle_porc_iva" class="java.lang.Integer"/>
+	<field name="factura_venta_detalle_importe_iva" class="java.math.BigDecimal"/>
+	<field name="factura_venta_detalle_porc_dto" class="java.math.BigDecimal"/>
+	<field name="factura_venta_detalle_total" class="java.math.BigDecimal"/>
+	<field name="factura_venta_detalle_imp_descuento" class="java.math.BigDecimal"/>
+	<field name="mt_articulos_cod_articulo" class="java.lang.String"/>
+	<field name="mt_articulos_nom_articulo" class="java.lang.String"/>
+	<field name="mt_articulos_precio_venta" class="java.math.BigDecimal"/>
+	<field name="mt_articulos_impuesto" class="java.lang.Integer"/>
+	<variable name="imp_ex" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{factura_venta_detalle_porc_iva} == 0 ? $F{factura_venta_detalle_total} : BigDecimal.ZERO]]></variableExpression>
+	</variable>
+	<variable name="imp_5" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{factura_venta_detalle_porc_iva} == 5 ? $F{factura_venta_detalle_total} : BigDecimal.ZERO]]></variableExpression>
+	</variable>
+	<variable name="imp_10" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{factura_venta_detalle_porc_iva} == 10 ? $F{factura_venta_detalle_total} : BigDecimal.ZERO]]></variableExpression>
+	</variable>
+	<group name="factura_venta_detalle_nro_trans">
+		<groupExpression><![CDATA[$F{factura_venta_detalle_nro_trans}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="295" y="0" width="49" height="12" uuid="518d97cd-69da-41c2-bcaa-ee3c7570dc9c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mt_articulos_precio_venta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="355" y="0" width="55" height="12" uuid="2b2328e2-67df-4c00-aeb8-48765cda2f4c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{imp_ex}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="413" y="0" width="61" height="12" uuid="814171e3-ce2e-4123-80cc-fc5d5664cbe1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{imp_5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="0" width="34" height="12" uuid="3134db30-ea7b-4a35-b085-53ef9837c636"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_detalle_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="474" y="0" width="64" height="12" uuid="1fb87c1d-2a53-4b48-b99f-865bb879b833"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{imp_10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="0" width="240" height="12" uuid="03b5d18c-2919-45dd-bfec-80b7452d92c9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_venta_detalle_cod_articulo} + "  " + $F{mt_articulos_nom_articulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

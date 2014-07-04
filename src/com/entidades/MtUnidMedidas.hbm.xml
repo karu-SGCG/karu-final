@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtUnidMedidas" table="mt_unid_medidas" schema="public">
+        <id name="codUnidad" type="string">
+            <column name="cod_unidad" length="5" />
+            <generator class="assigned" />
+        </id>
+        <property name="descUnidad" type="string">
+            <column name="desc_unidad" length="50" not-null="true" />
+        </property>
+        <property name="simbolo" type="string">
+            <column name="simbolo" length="5" not-null="true" />
+        </property>
+        <property name="fracciones" type="short">
+            <column name="fracciones" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="mtConversionUnidadeses" table="mt_conversion_unidades" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_uni_des" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtConversionUnidades" />
+        </set>
+        <set name="mtArticulosesForUniMedidaVenta" table="mt_articulos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="uni_medida_venta" length="5" />
+            </key>
+            <one-to-many class="com.entidades.MtArticulos" />
+        </set>
+        <set name="mtArticulosesForUniMedidaCom" table="mt_articulos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="uni_medida_com" length="5" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtArticulos" />
+        </set>
+        <set name="mtArticulosesForUniMedidaVenta_1" table="mt_articulos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="uni_medida_venta" length="5" />
+            </key>
+            <one-to-many class="com.entidades.MtArticulos" />
+        </set>
+    </class>
+</hibernate-mapping>

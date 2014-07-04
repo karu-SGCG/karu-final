@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.PresupuestoCab" table="presupuesto_cab" schema="public">
+        <id name="nroTrans" type="int">
+            <column name="nro_trans" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="mtTipoComprobantes" class="com.entidades.MtTipoComprobantes" fetch="select">
+            <column name="tipo_comprobante" length="5" />
+        </many-to-one>
+        <many-to-one name="mtMonedas" class="com.entidades.MtMonedas" fetch="select">
+            <column name="cod_moneda" />
+        </many-to-one>
+        <many-to-one name="mtClientes" class="com.entidades.MtClientes" fetch="select">
+            <column name="cod_tit" length="20" />
+        </many-to-one>
+        <many-to-one name="mtSucursales" class="com.entidades.MtSucursales" fetch="select">
+            <column name="cod_sucursal" length="5" />
+        </many-to-one>
+        <property name="nroPresupuesto" type="int">
+            <column name="nro_presupuesto" not-null="true" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="29" />
+        </property>
+        <property name="tipoCambio" type="big_decimal">
+            <column name="tipo_cambio" precision="13" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="observacion" length="50" />
+        </property>
+        <property name="total" type="big_decimal">
+            <column name="total" precision="14" />
+        </property>
+        <property name="gravada" type="big_decimal">
+            <column name="gravada" precision="14" />
+        </property>
+        <property name="exenta" type="big_decimal">
+            <column name="exenta" precision="14" />
+        </property>
+        <property name="totalIva" type="big_decimal">
+            <column name="total_iva" precision="14" />
+        </property>
+        <property name="iva10" type="big_decimal">
+            <column name="iva_10" precision="14" />
+        </property>
+        <property name="iva5" type="big_decimal">
+            <column name="iva_5" precision="14" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="estado" length="1" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="presupuestoDets" table="presupuesto_det" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="nro_trans" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.PresupuestoDet" />
+        </set>
+    </class>
+</hibernate-mapping>

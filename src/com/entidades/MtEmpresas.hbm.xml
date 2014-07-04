@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.MtEmpresas" table="mt_empresas" schema="public">
+        <id name="codEmp" type="int">
+            <column name="cod_emp" />
+            <generator class="assigned" />
+        </id>
+        <property name="nomEmp" type="string">
+            <column name="nom_emp" length="50" not-null="true" />
+        </property>
+        <property name="ruc" type="string">
+            <column name="ruc" length="20" not-null="true" />
+        </property>
+        <property name="esActivo" type="char">
+            <column name="es_activo" length="1" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+        <set name="prProducs" table="pr_produc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_emp" />
+            </key>
+            <one-to-many class="com.entidades.PrProduc" />
+        </set>
+        <set name="stExistenciaSucs" table="st_existencia_suc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_emp" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.StExistenciaSuc" />
+        </set>
+        <set name="stExistenciaSucs_1" table="st_existencia_suc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_emp" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.StExistenciaSuc" />
+        </set>
+        <set name="mtSucursaleses" table="mt_sucursales" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_emp" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtSucursales" />
+        </set>
+        <set name="mtSucursaleses_1" table="mt_sucursales" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_emp" not-null="true" />
+            </key>
+            <one-to-many class="com.entidades.MtSucursales" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/06/2014 01:17:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.entidades.PresupuestoDet" table="presupuesto_det" schema="public">
+        <composite-id name="id" class="com.entidades.PresupuestoDetId">
+            <key-property name="nroTrans" type="int">
+                <column name="nro_trans" />
+            </key-property>
+            <key-property name="codArticulo" type="string">
+                <column name="cod_articulo" length="20" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="presupuestoCab" class="com.entidades.PresupuestoCab" update="false" insert="false" fetch="select">
+            <column name="nro_trans" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mtArticulos" class="com.entidades.MtArticulos" update="false" insert="false" fetch="select">
+            <column name="cod_articulo" length="20" not-null="true" />
+        </many-to-one>
+        <property name="nroPresupuesto" type="int">
+            <column name="nro_presupuesto" not-null="true" />
+        </property>
+        <property name="linea" type="int">
+            <column name="linea" not-null="true" />
+        </property>
+        <property name="precioUnitarioMn" type="big_decimal">
+            <column name="precio_unitario_mn" precision="14" not-null="true" />
+        </property>
+        <property name="codMoneda" type="java.lang.Integer">
+            <column name="cod_moneda" />
+        </property>
+        <property name="tipoCambio" type="big_decimal">
+            <column name="tipo_cambio" precision="14" not-null="true" />
+        </property>
+        <property name="precioUnitario" type="big_decimal">
+            <column name="precio_unitario" precision="14" not-null="true" />
+        </property>
+        <property name="cantidad" type="int">
+            <column name="cantidad" not-null="true" />
+        </property>
+        <property name="subtotal" type="big_decimal">
+            <column name="subtotal" precision="14" not-null="true" />
+        </property>
+        <property name="porcDto" type="big_decimal">
+            <column name="porc_dto" precision="14" not-null="true" />
+        </property>
+        <property name="impDescuento" type="big_decimal">
+            <column name="imp_descuento" precision="14" not-null="true" />
+        </property>
+        <property name="total" type="big_decimal">
+            <column name="total" precision="14" not-null="true" />
+        </property>
+        <property name="porcIva" type="int">
+            <column name="porc_iva" not-null="true" />
+        </property>
+        <property name="importeIva" type="big_decimal">
+            <column name="importe_iva" precision="14" not-null="true" />
+        </property>
+        <property name="usuarioMod" type="string">
+            <column name="usuario_mod" length="30" />
+        </property>
+        <property name="accionMod" type="string">
+            <column name="accion_mod" length="10" />
+        </property>
+        <property name="fechaMod" type="timestamp">
+            <column name="fecha_mod" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

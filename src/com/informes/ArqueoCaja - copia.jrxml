@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Arqueo de Caja" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ff37f73-4f3b-4d9f-9dad-23cb237424b3">
+	<property name="ireport.zoom" value="1.464100000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nro_arqueo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[4]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[-- ventas realizadas
+select 1 as tipo, a.cod_caja, ca.nom_caja, ca.cod_sucursal, s.nom_sucursal, f.tipo_comprobante, f.cod_suc_fac, f.cod_tribut_fac, f.nro_docum, v.cod_forma_pago, p.descripcion, f.cod_cliente,
+c.nom_tit, 0 as recibo, v.importe as importe, v.ref_operacion as referencia, a.fecha_desde, a.fecha_hasta, a.apertura_mn, f.fecha
+from factura_venta f
+inner join valores_det v on v.nro_trans = f.nro_trans and v.cod_docum = f.tipo_comprobante
+inner join mt_clientes c on c.nro_docum = f.cod_cliente
+inner join arqueo_cab a on f.fecha >= a.fecha_desde and f.fecha <= (case when (a.fecha_hasta is null) then localtimestamp else a.fecha_hasta end) and f.cod_caja = a.cod_caja
+inner join caja ca on ca.cod_caja = a.cod_caja
+inner join mt_sucursales s on s.cod_sucursal = ca.cod_sucursal 
+inner join mt_forma_pago p on p.cod_tipo = v.cod_forma_pago
+where f.estado <> 'A' and a.nro_operacion = $P{nro_arqueo}
+
+union all 
+
+--cobranzas realizadas
+select 2 as tipo, a.cod_caja, ca.nom_caja, ca.cod_sucursal, s.nom_sucursal, 'FT', d.cod_suc_tribut, d.cod_tribut_fac, d.nro_factura, v.cod_forma_pago, p.descripcion, d.cod_cliente, cl.nom_tit, d.nro_recibo, v.importe, trim(CAST (c.nro_recibo AS char(15))) referencia, a.fecha_desde, a.fecha_hasta, a.apertura_mn, c.fecha 
+from cobranza c join cobranza_det d on c.nro_recibo = d.nro_recibo
+inner join valores_det v on v.cod_docum = 'RE' and v.nro_trans = d.nro_recibo
+inner join mt_clientes cl on d.cod_cliente = cl.nro_docum
+inner join arqueo_cab a on c.fecha >= a.fecha_desde and c.fecha <= (case when (a.fecha_hasta is null) then localtimestamp else a.fecha_hasta end)   and c.cod_caja = a.cod_caja
+inner join caja ca on ca.cod_caja = a.cod_caja
+inner join mt_sucursales s on s.cod_sucursal = ca.cod_sucursal 
+inner join mt_forma_pago p on p.cod_tipo = v.cod_forma_pago
+where a.nro_operacion = $P{nro_arqueo}
+
+union all 
+
+--comprobantes anulados
+select 3 as tipo, a.cod_caja, ca.nom_caja, ca.cod_sucursal, s.nom_sucursal, f.tipo_comprobante, f.cod_suc_fac, f.cod_tribut_fac, f.nro_docum, v.cod_forma_pago, p.descripcion, f.cod_cliente,
+c.nom_tit, 0 as recibo, 0 as importe, v.ref_operacion, a.fecha_desde, a.fecha_hasta, a.apertura_mn, f.fecha
+from factura_venta f
+inner join valores_det v on v.nro_trans = f.nro_trans and v.cod_docum = f.tipo_comprobante
+inner join mt_clientes c on c.nro_docum = f.cod_cliente
+inner join arqueo_cab a on f.fecha >= a.fecha_desde and f.fecha <= (case when (a.fecha_hasta is null) then localtimestamp else a.fecha_hasta end) and f.cod_caja = a.cod_caja
+inner join caja ca on ca.cod_caja = a.cod_caja
+inner join mt_sucursales s on s.cod_sucursal = ca.cod_sucursal 
+inner join mt_forma_pago p on p.cod_tipo = v.cod_forma_pago
+where f.estado = 'A' and a.nro_operacion = $P{nro_arqueo}
+order by 1,10, 6, 7, 8, 9]]>
+	</queryString>
+	<field name="tipo" class="java.lang.Integer"/>
+	<field name="cod_caja" class="java.lang.String"/>
+	<field name="nom_caja" class="java.lang.String"/>
+	<field name="cod_sucursal" class="java.lang.String"/>
+	<field name="nom_sucursal" class="java.lang.String"/>
+	<field name="tipo_comprobante" class="java.lang.String"/>
+	<field name="cod_suc_fac" class="java.lang.String"/>
+	<field name="cod_tribut_fac" class="java.lang.String"/>
+	<field name="nro_docum" class="java.lang.Integer"/>
+	<field name="cod_forma_pago" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="cod_cliente" class="java.lang.String"/>
+	<field name="nom_tit" class="java.lang.String"/>
+	<field name="recibo" class="java.lang.Integer"/>
+	<field name="importe" class="java.math.BigDecimal"/>
+	<field name="referencia" class="java.lang.String"/>
+	<field name="fecha_desde" class="java.sql.Timestamp"/>
+	<field name="fecha_hasta" class="java.sql.Timestamp"/>
+	<field name="apertura_mn" class="java.math.BigDecimal"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<variable name="tipo_1" class="java.lang.Integer" resetType="Group" resetGroup="porTipo" calculation="First">
+		<variableExpression><![CDATA[$F{tipo}]]></variableExpression>
+	</variable>
+	<variable name="comprobantes" class="java.lang.String"/>
+	<variable name="cliente" class="java.lang.String"/>
+	<variable name="referencia_pago" class="java.lang.String"/>
+	<variable name="caja" class="java.lang.String"/>
+	<variable name="sucursal" class="java.lang.String"/>
+	<variable name="fecha" class="java.lang.String"/>
+	<variable name="sub_importes" class="java.math.BigDecimal" resetType="Group" resetGroup="porTipo" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<variable name="total_importe" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<variable name="tota_importe_res" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{total_importe}]]></variableExpression>
+	</variable>
+	<variable name="total_arqueado" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{apertura_mn}.add($F{apertura_mn})]]></variableExpression>
+	</variable>
+	<group name="porTipo">
+		<groupExpression><![CDATA[$F{tipo}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField evaluationTime="Group" evaluationGroup="porTipo">
+					<reportElement x="3" y="0" width="100" height="20" uuid="15d9771b-0539-4e3f-b3f7-ed564f877144"/>
+					<textElement>
+						<font size="11" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipo} == 1 ? "VENTAS" : 
+$F{tipo} == 2 ? "COBRANZAS" :
+"ANULADOS"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="25">
+				<textField evaluationTime="Group" evaluationGroup="porTipo" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="475" y="4" width="77" height="20" uuid="62c3b10d-7092-4e98-a0d0-c54b75646675"/>
+					<textElement textAlignment="Right">
+						<font isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sub_importes}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="486" y="1" width="65" height="1" uuid="e02806f4-e60a-410d-b94d-7305502c0f54"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="forma_pago">
+		<groupExpression><![CDATA[$F{cod_forma_pago}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField>
+					<reportElement x="14" y="2" width="159" height="20" uuid="542ee079-e2ab-4fb6-bdbd-934143e2fcc3"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="6" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="141" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="120" width="100" height="20" uuid="71bd79ce-6602-4cab-a180-f07a6ea2c5a4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comprobante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="120" width="100" height="20" uuid="5ef38ad0-ce5f-4461-9a36-2255c85cc181"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="31" width="554" height="27" uuid="7a122d17-46d7-4146-a575-8e6bbc956abb"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Arqueo de Caja]]></text>
+			</staticText>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="451" y="14" width="100" height="20" uuid="aaa1c777-6273-4238-85d6-32cab5322677"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="5" width="306" height="20" uuid="fd1c1fa2-944a-477b-9d62-d0e0c0c78fd8"/>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="451" y="1" width="100" height="20" uuid="be4fa27d-df1b-4689-b578-434a81c78dac"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="374" y="120" width="65" height="20" uuid="da447124-2553-4c05-ab5c-a7ecdf956ef5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Referencia]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="137" width="547" height="1" uuid="6d55bfb0-aea7-4187-9520-5b4cc1b0dcf6"/>
+			</line>
+			<staticText>
+				<reportElement x="14" y="92" width="65" height="20" uuid="69bd1cb0-d1b3-435a-af9f-f87d583771dd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Arqueo Nro.: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="92" width="57" height="20" uuid="f43fe251-e0bc-45ed-90bb-b9d560424bd2"/>
+				<textFieldExpression><![CDATA[$P{nro_arqueo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="15" y="70" width="30" height="20" uuid="b50267e8-0515-4e8e-8340-a78e3528dcab"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Caja:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="70" width="186" height="20" uuid="faf7bffa-0ae4-4acf-9952-b5530cf045cc"/>
+				<textFieldExpression><![CDATA['(' + $F{cod_caja} + ')' + ' ' + $F{nom_caja}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="70" width="49" height="20" uuid="7e472ca8-6da3-41af-9773-543b58aa04d2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sucursal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="289" y="70" width="207" height="20" uuid="ee449d4a-97e7-454f-9b4b-f9836618f171"/>
+				<textFieldExpression><![CDATA['(' + $F{cod_sucursal} + ')' + ' ' + $F{nom_sucursal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="242" y="94" width="47" height="20" uuid="1e6e3de3-4e49-4f51-b80a-1cca53245f02"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="289" y="94" width="65" height="20" uuid="3e253fb5-8c32-40dd-992b-3259c87a1685"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_desde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="361" y="94" width="66" height="20" uuid="6306b16f-ccd1-4e9d-bbf7-02a47da3c1be"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_hasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="353" y="94" width="9" height="20" uuid="8b89d407-81f4-4138-96bc-0e2064198bfb"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="486" y="121" width="65" height="20" uuid="5dafa5cb-0d5f-4241-8c8e-69df3ed20c35"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="121" width="60" height="20" uuid="ceb395e7-a741-4169-bed2-db6110c8e24d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="5" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField evaluationTime="Auto" pattern="#,##0">
+				<reportElement x="451" y="0" width="100" height="20" uuid="b2c962a2-65de-4258-8084-3a17edbb5b9d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="2" width="105" height="20" uuid="8a5df5a7-4d84-4cc2-b4f8-19309793d2fc"/>
+				<textFieldExpression><![CDATA[$F{tipo_comprobante} + "   " + $F{cod_suc_fac} + '-' + $F{cod_tribut_fac} + '-' + $F{nro_docum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="2" width="145" height="20" uuid="b2061297-0acd-483c-ae3d-1f5f1395ec47"/>
+				<textFieldExpression><![CDATA[$F{cod_cliente} + "   " + $F{nom_tit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="374" y="2" width="65" height="20" uuid="104383b3-481b-47c8-8f90-f00720c21bf9"/>
+				<textFieldExpression><![CDATA[$F{tipo} == 2 ? "RE  " + $F{referencia} :
+""]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="293" y="2" width="60" height="20" uuid="b134b050-b009-48bf-9b09-3256f6ded950"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="516" y="0" width="40" height="20" uuid="56c51f59-a542-41e2-8c89-54966d13807e"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="438" y="0" width="80" height="20" uuid="0bb6eb9b-d031-489a-a408-affa126a7f5b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="0" width="100" height="20" uuid="83a258ac-60a4-47db-9f42-e8e89978a030"/>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="134" splitType="Stretch">
+			<textField>
+				<reportElement x="166" y="3" width="159" height="20" uuid="23dba5a1-550c-433d-88b2-6bc8f3039027"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de Registros: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="407" y="5" width="68" height="20" uuid="c4854140-4b64-48a9-97bf-fbd8b9030aa1"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total Importes:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="5" width="80" height="20" uuid="6bdaf74a-b27c-41ff-99f4-349f9e86a343"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_importe}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="486" y="2" width="67" height="1" uuid="460d6372-da62-4844-ba48-a7da806c1ecc"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="14" y="41" width="77" height="20" uuid="78742cc4-a0a9-4253-93f4-c63d52c65f75"/>
+				<text><![CDATA[Total Importes :]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="91" y="41" width="93" height="20" uuid="47756a96-78da-43d0-983b-d4fb60d0baa3"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{tota_importe_res}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="91" y="83" width="93" height="1" uuid="a6ab84e1-9272-4cd8-9b13-2a93a7ab2931"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

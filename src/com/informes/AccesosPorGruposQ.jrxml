@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Listado de Permisos" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="404a485c-14bd-4497-ac26-20b27b382f84">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select b.nom_cargo, a.nom_formulario, c.desc_formulario, a.puede_ejecutar, a.puede_insertar, a.puede_modificar, a.puede_eliminar
+from 
+mt_accesos_grupos a 
+left outer join mt_cargos b on a.cod_cargo = b.cod_cargo
+left outer join mt_formularios c on a.nom_formulario = c.nom_formulario
+order by b.nom_cargo, a.nom_formulario;]]>
+	</queryString>
+	<field name="nom_cargo" class="java.lang.String"/>
+	<field name="nom_formulario" class="java.lang.String"/>
+	<field name="desc_formulario" class="java.lang.String"/>
+	<field name="puede_ejecutar" class="java.lang.String"/>
+	<field name="puede_insertar" class="java.lang.String"/>
+	<field name="puede_modificar" class="java.lang.String"/>
+	<field name="puede_eliminar" class="java.lang.String"/>
+	<group name="Cargos">
+		<groupExpression><![CDATA[$F{nom_cargo}]]></groupExpression>
+		<groupHeader>
+			<band height="39">
+				<textField>
+					<reportElement x="49" y="9" width="179" height="20" uuid="c3566ca9-4ada-4e0d-b6b4-2c831de420ae"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nom_cargo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="116" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="10" width="228" height="20" uuid="d84bb844-2f73-42bf-856f-29882c086303"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Servicios Gastronómicos "Don José"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="47" width="555" height="36" uuid="4055053a-a709-471b-9001-efcee42039c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Permisos por Cargo]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="445" y="7" width="100" height="20" uuid="5f75e0da-107f-40c3-97ec-82dfa3eacf64"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement x="445" y="27" width="100" height="20" uuid="4a51057c-c58d-46f7-be69-37929f4fa4dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="13" y="110" width="540" height="1" uuid="e2e5a690-1931-4274-8166-8b816c6ef7b3"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="-28" width="100" height="20" uuid="5cf5a651-5363-4b8b-8695-a20f5a4bc357"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Formulario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="-28" width="189" height="20" uuid="6f5d87f9-f5bf-42ae-a0bc-c3df745d0086"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="-28" width="57" height="20" uuid="4f888ec0-aa28-42ed-8540-94d62d18692c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ejecución]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="-28" width="57" height="20" uuid="851fdf93-4263-497e-a794-1a6940289fd1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Insertar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="-28" width="57" height="20" uuid="29ef32d2-2c0b-4663-a544-e6ab4f57e602"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Modificar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="-28" width="57" height="20" uuid="d4fe8fd9-df37-4f73-8d30-2a073d36de1c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Eliminar]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="1" width="100" height="20" uuid="c3a3b322-ac2e-4156-84d1-0c0dd6f7300b"/>
+				<textFieldExpression><![CDATA[$F{nom_formulario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="1" width="189" height="20" uuid="9933ef1b-41c0-472a-a672-92debb53fd16"/>
+				<textFieldExpression><![CDATA[$F{desc_formulario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="497" y="1" width="39" height="20" uuid="7cde8211-5f8c-4740-8d9a-cc01c4d1f58f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{puede_eliminar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="1" width="39" height="20" uuid="dfd06047-9fb9-437a-8433-9738c2bd6836"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{puede_ejecutar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="1" width="39" height="20" uuid="bd7c931b-d3e3-4a67-b85a-9f1890355447"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{puede_insertar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="438" y="1" width="39" height="20" uuid="d0f7e50c-b785-4ffe-a8df-5ac2af870247"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{puede_modificar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="9" width="100" height="20" uuid="497113ad-edd3-4d44-b445-a0df06e2a151"/>
+				<text><![CDATA[KARU SGCG]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="445" y="9" width="62" height="20" uuid="825723c6-ed79-406e-ad02-35b57d0f2c42"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="507" y="9" width="40" height="20" uuid="58268ad9-4749-4ee3-9894-73f3a15641d5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="226" y="3" width="178" height="20" uuid="f3a05182-8427-475c-bd19-8fe60390bcfb"/>
+				<textFieldExpression><![CDATA["Total de Registros: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
